@@ -1,0 +1,273 @@
+﻿
+
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Group Name</label><br />
+                        <input type="text" class="form-control txtSearchGroupName txtSearchOption" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>Group Code</label><br />
+                        <input type="text" class="form-control txtSearchGroupCode txtSearchOption" />
+                    </div>
+                    <div class="col-md-3">
+                        <br />
+                        <button type="button" class="btn btn-primary btnSearch">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-3">
+    <div class="col-md-8">
+        @*left part*@
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>User Group ID</th>
+                            <th>User Group Name</th>
+                            <th>User Group Code</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="main-table">
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+        @*RIGHT PART*@
+        <div class="card">
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">User Group Name</label>
+                        <input type="text" class="form-control" id="txtUserGroupName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">User Group Code</label>
+                        <input type="text" class="form-control" id="txtUserGroupCode">
+                    </div>
+
+                    <input type="hidden" id="hdnUserGroupID" value="0" />
+                    <button type="button" class="btn btn-primary btnSubmit">Submit</button>
+                    <button type="button" class="btn btn-danger btnClear ">Clear</button>
+                    <button type="button" class="btn btn-success btnReload "><i class="fa fa-refresh"></i>  Reload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+            $(document).ready(function () {
+                loadData();
+
+            });
+
+        function loadData() {
+
+            var searchGrpName = $('.txtSearchGroupName').val();
+            var searchGrpCode = $('.txtSearchGroupCode').val();
+                
+
+
+                 $.ajax({
+                        method: 'get',
+                     url: "@Url.Action("GetActiveData", "UserGroup")?grpName=" + searchGrpName + "&grpCode=" + searchGrpCode,
+                        contentType: "application/json; charset=utf-8",
+                        //data: config.data,
+                        beforeSend: function () {
+                            //block ui
+                            $.blockUI();
+                        },
+                        success: function (res) {
+                            if (res.success) {
+                                var mainData = res.data;
+                                var htmlString = '';
+                                $.each(mainData, function (i, x) {
+                                    htmlString += '<tr>';
+                                    htmlString += '<td>' + x.userGroupID + '</td>';
+                                    htmlString += '<td>' + x.userGroupName + '</td>';
+                                    htmlString += '<td>' + x.userGroupCode + '</td>';
+                                    htmlString += '<td>'
+                                    htmlString += '<button type="button" class="btn btn-secondary btn-sm btnEdit" data-key="' + x.userGroupID + '"><i class="fa fa-edit"></i> Edit</button>';
+                                    htmlString += '<button type="button" class="btn btn-danger btn-sm btnDelete" data-key="' + x.userGroupID + '"><i class="fa fa-trash"></i> Delete</button>';
+
+                                    htmlString += '</td > ';
+                                    htmlString += '</tr>';
+
+                                });
+
+                                $('.main-table').html(htmlString)
+                            } else {
+                                toastr["error"](res.message);
+                            }
+                        },
+                        error: function (e) { console.log(e) },
+                        complete: function () {
+                            //unblock ui
+                            $.unblockUI()
+                        }
+                });
+            }
+
+
+            $(document).on('click', '.btnSubmit', function () {
+                var grpName = $('#txtUserGroupName').val();
+                var grpCode = $('#txtUserGroupCode').val();
+                var grpID = $('#hdnUserGroupID').val() || "0";
+
+
+                var obj = {
+                    UserGroupID: +grpID,
+                    UserGroupName: grpName,
+                    UserGroupCode: grpCode
+                };
+
+
+                if (grpName == '') {
+                    toastr["error"]("Enter User Grop Name")
+                } else if (grpCode == '') {
+                    toastr["error"]("Enter User Grop Code")
+                } else {
+
+                    $.ajax({
+                        method: 'post',
+                        url: "@Url.Action("Create","UserGroup")",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(obj),
+                        beforeSend: function () {
+                            //block ui
+                            $.blockUI();
+                        },
+                        success: function (data) {
+                            if (data.success) {
+                                toastr["success"](data.message);
+                                clearForm();
+                                reloadData();
+                            } else {
+                                toastr["error"](data.message);
+                            }
+                        },
+                        error: function (e) { console.log(e) },
+                        complete: function () {
+                            //unblock ui
+                            $.unblockUI()
+                        }
+                });
+                }
+
+
+            });
+
+        $(document).on("click", ".btnClear", function () {
+            clearForm();
+        });
+        $(document).on("click", ".btnReload", function () {
+            reloadData();
+        });
+
+        $(document).on('click', '.btnEdit', function () {
+            var userGroupID = $(this).data('key');
+
+            $.ajax({
+                        method: 'get',
+                     url: "@Url.Action("GetByID", "UserGroup")?id=" + userGroupID,
+                        contentType: "application/json; charset=utf-8",
+                        //data: config.data,
+                        beforeSend: function () {
+                            //block ui
+                            $.blockUI();
+                        },
+                        success: function (res) {
+                            if (res.success) {
+                                $('#txtUserGroupName').val(res.data.userGroupName);
+                                $('#txtUserGroupCode').val(res.data.userGroupCode);
+                                $('#hdnUserGroupID').val(res.data.userGroupID);
+
+                                $('#txtUserGroupName').focus();
+                            } else {
+                                toastr["error"](res.message);
+                            }
+                        },
+                        error: function (e) { console.log(e) },
+                        complete: function () {
+                            //unblock ui
+                            $.unblockUI()
+                        }
+                });
+
+
+        });
+
+        $(document).on('click', '.btnDelete', function () {
+           var userGroupID =  $(this).data('key');
+            var ok = confirm('are you sure to delete data?');
+            if (ok) {
+                 $.ajax({
+                        method: 'get',
+                     url: "@Url.Action("Delete","UserGroup")?id=" + userGroupID,
+                        contentType: "application/json; charset=utf-8",
+                        //data: config.data,
+                        beforeSend: function () {
+                            //block ui
+                            $.blockUI();
+                        },
+                        success: function (data) {
+                            if (data.success) {
+                                toastr["success"](data.message);
+                                reloadData();
+                            } else {
+                                toastr["error"](data.message);
+                            }
+                        },
+                        error: function (e) { console.log(e) },
+                        complete: function () {
+                            //unblock ui
+                            $.unblockUI()
+                        }
+                });
+            }
+        });
+
+        $(document).on('click', '.btnSearch', function () {
+            loadData();
+        })
+
+        $(document).on('change', '.txtSearchOption', function () {
+            loadData();
+        })
+
+
+
+        function clearForm() {
+            $('#txtUserGroupName').val('');
+            $('#txtUserGroupCode').val('');
+            $('#hdnUserGroupID').val('0');
+        }
+
+        function reloadData() {
+            loadData();
+        }
+    </script>
+
+
+}

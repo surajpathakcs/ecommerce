@@ -1,0 +1,119 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{103231C0-40AE-4B6E-B8A7-89BEF98F7F17}|HimalayanTest\\HimalayanTest.csproj|c:\\users\\jyoti bhandari\\desktop\\hello\\himalayancolz\\himalayantest\\views\\usergroup\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{103231C0-40AE-4B6E-B8A7-89BEF98F7F17}|HimalayanTest\\HimalayanTest.csproj|solutionrelative:himalayantest\\views\\usergroup\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{103231C0-40AE-4B6E-B8A7-89BEF98F7F17}|HimalayanTest\\HimalayanTest.csproj|c:\\users\\jyoti bhandari\\desktop\\hello\\himalayancolz\\himalayantest\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{103231C0-40AE-4B6E-B8A7-89BEF98F7F17}|HimalayanTest\\HimalayanTest.csproj|solutionrelative:himalayantest\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{103231C0-40AE-4B6E-B8A7-89BEF98F7F17}|HimalayanTest\\HimalayanTest.csproj|c:\\users\\jyoti bhandari\\desktop\\hello\\himalayancolz\\himalayantest\\controllers\\usergroupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{103231C0-40AE-4B6E-B8A7-89BEF98F7F17}|HimalayanTest\\HimalayanTest.csproj|solutionrelative:himalayantest\\controllers\\usergroupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{103231C0-40AE-4B6E-B8A7-89BEF98F7F17}|HimalayanTest\\HimalayanTest.csproj|c:\\users\\jyoti bhandari\\desktop\\hello\\himalayancolz\\himalayantest\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{103231C0-40AE-4B6E-B8A7-89BEF98F7F17}|HimalayanTest\\HimalayanTest.csproj|solutionrelative:himalayantest\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{103231C0-40AE-4B6E-B8A7-89BEF98F7F17}|HimalayanTest\\HimalayanTest.csproj|c:\\users\\jyoti bhandari\\desktop\\hello\\himalayancolz\\himalayantest\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{103231C0-40AE-4B6E-B8A7-89BEF98F7F17}|HimalayanTest\\HimalayanTest.csproj|solutionrelative:himalayantest\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{103231C0-40AE-4B6E-B8A7-89BEF98F7F17}|HimalayanTest\\HimalayanTest.csproj|c:\\users\\jyoti bhandari\\desktop\\hello\\himalayancolz\\himalayantest\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{103231C0-40AE-4B6E-B8A7-89BEF98F7F17}|HimalayanTest\\HimalayanTest.csproj|solutionrelative:himalayantest\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserGroupController.cs",
+              "DocumentMoniker": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\HimalayanTest\\Controllers\\UserGroupController.cs",
+              "RelativeDocumentMoniker": "HimalayanTest\\Controllers\\UserGroupController.cs",
+              "ToolTip": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\HimalayanTest\\Controllers\\UserGroupController.cs",
+              "RelativeToolTip": "HimalayanTest\\Controllers\\UserGroupController.cs",
+              "ViewState": "AQIAAFcAAAAAAAAAAAAmwHkAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-09T06:14:18.716Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\HimalayanTest\\Views\\UserGroup\\Index.cshtml",
+              "RelativeDocumentMoniker": "HimalayanTest\\Views\\UserGroup\\Index.cshtml",
+              "ToolTip": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\HimalayanTest\\Views\\UserGroup\\Index.cshtml",
+              "RelativeToolTip": "HimalayanTest\\Views\\UserGroup\\Index.cshtml",
+              "ViewState": "AQIAANoAAAAAAAAAAAAAAPgAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-14T11:55:51.643Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Student.cs",
+              "DocumentMoniker": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\HimalayanTest\\Models\\Student.cs",
+              "RelativeDocumentMoniker": "HimalayanTest\\Models\\Student.cs",
+              "ToolTip": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\HimalayanTest\\Models\\Student.cs",
+              "RelativeToolTip": "HimalayanTest\\Models\\Student.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T06:11:57.121Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "StudentController.cs",
+              "DocumentMoniker": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\HimalayanTest\\Controllers\\StudentController.cs",
+              "RelativeDocumentMoniker": "HimalayanTest\\Controllers\\StudentController.cs",
+              "ToolTip": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\HimalayanTest\\Controllers\\StudentController.cs",
+              "RelativeToolTip": "HimalayanTest\\Controllers\\StudentController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T06:11:46.22Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\HimalayanTest\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "HimalayanTest\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\HimalayanTest\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "HimalayanTest\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAACoAAAAAAAAAAAAAADEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-14T14:49:54.877Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_ValidationScriptsPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\HimalayanTest\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeDocumentMoniker": "HimalayanTest\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ToolTip": "C:\\Users\\jyoti bhandari\\Desktop\\hello\\himalayanColz\\HimalayanTest\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeToolTip": "HimalayanTest\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-14T14:49:53.558Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

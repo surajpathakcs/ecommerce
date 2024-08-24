@@ -1,0 +1,219 @@
+﻿@model IEnumerable<HimalayanTest.Models.Users>
+
+
+<div class="row">
+    <div class="col-md-8">
+        @*left part*@
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-hover dtTable">
+                    <thead>
+                        <tr>
+                            <th>UserID</th>
+                            <th>Username</th>
+                            <th>Fullname</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.UsersID</td>
+                                <td>@item.Username</td>
+                                <td>@item.Fullname</td>
+                                <td>@item.Status</td>
+                                <td>
+                                    <button type="button" class="btn btn-secondary btn-sm btnEdit" data-key="@item.UsersID">
+                                        <i class="fa fa-edit"></i> Edit
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm btnDelete" data-key="@item.UsersID">
+                                        <i class="fa fa-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+        @*RIGHT PART*@
+        <div class="card">
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Username</label>
+                        <input type="text" class="form-control" id="txtUserName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">FullName</label>
+                        <input type="text" class="form-control" id="txtFullName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Password</label>
+                        <input type="password" class="form-control" id="pwdPassword">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Confirm Password</label>
+                        <input type="password" class="form-control" id="pwdConfirmPassword">
+                    </div>
+
+                    <input type="hidden" id="hdnUserID" value="0" />
+                    <button type="button" class="btn btn-primary btnSubmit">Submit</button>
+                    <button type="button" class="btn btn-danger btnClear ">Clear</button>
+                    <button type="button" class="btn btn-success btnReload "><i class="fa fa-refresh"></i>  Reload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+            $(document).ready(function () {
+                toastr["success"]("Welcome to our site!!")
+
+
+            });
+
+
+            $(document).on('click', '.btnSubmit', function () {
+                var grpName = $('#txtUserName').val();
+                var grpFullName = $('#txtFullName').val();
+                var grpPass = $('#pwdPassword').val();
+                var grpConfirm = $('#pwdConfirmPassword').val();
+                var grpID = $('#hdnUserID').val() || "0";
+
+
+                if (grpName == '') {
+                    toastr["error"]("Enter UserName")
+                } else if (grpFullName == '') {
+                toastr["error"]("Enter Full Name")
+                } else if (grpPass == '' || grpConfirm == '' ) {
+                    toastr["error"]("Enter Password")
+                } else if (grpConfirm != grpPass) {
+                toastr["error"]("Password Do Not Match")
+                } else {
+
+                    $.ajax({
+                        method: 'get',
+                        url: "@Url.Action("Create","Users")?groupname=" + grpName + "&groupfullname=" + grpFullName + "&grouppass=" + grpPass + "&groupconfirm=" +grpConfirm+  "&id=" + grpID,
+                        contentType: "application/json; charset=utf-8",
+                        //data: config.data,
+                        beforeSend: function () {
+                            //block ui
+                            //$.blockUI();
+                        },
+                        success: function (data) {
+                            if (data.success) {
+                                toastr["success"](data.message);
+                                clearForm();
+                                reloadData();
+                            } else {
+                                toastr["error"](data.message);
+                            }
+                        },
+                        error: function (e) { console.log(e) },
+                        complete: function () {
+                            //unblock ui
+                            //$.unblockUI()
+                        }
+                });
+                }
+
+
+            });
+
+        $(document).on("click", ".btnClear", function () {
+            clearForm();
+        });
+        $(document).on("click", ".btnReload", function () {
+            reloadData();
+        });
+
+        $(document).on('click', '.btnEdit', function () {
+            var userID = $(this).data('key');
+            $('#txtUserName').focus();
+            $.ajax({
+                        method: 'get',
+                     url: "@Url.Action("GetByID", "Users")?id=" + userID,
+                        contentType: "application/json; charset=utf-8",
+                        //data: config.data,
+                        beforeSend: function () {
+                            //block ui
+                            //$.blockUI();
+                        },
+                        success: function (res) {
+                            if (res.success) {
+                                debugger;
+                                $('#txtUserName').val(res.data.username);
+                                $('#txtFullName').val(res.data.userFullName);
+                                $('#pwdPassword').val(res.data.userPassword);
+                                $('#pwdConfirmPassword').val(res.data.userConfirmPassword);
+                                $('#hdnUserID').val(res.data.userID);
+                            } else {
+                                toastr["error"](res.message);
+                            }
+                        },
+                        error: function (e) { console.log(e) },
+                        complete: function () {
+                            //unblock ui
+                            //$.unblockUI()
+                        }
+                });
+
+
+        });
+
+        $(document).on('click', '.btnDelete', function () {
+           var userID =  $(this).data('key');
+            var ok = confirm('are you sure to delete data?');
+            if (ok) {
+                 $.ajax({
+                        method: 'get',
+                     url: "@Url.Action("Delete","Users")?id=" + userID,
+                        contentType: "application/json; charset=utf-8",
+                        //data: config.data,
+                        beforeSend: function () {
+                            //block ui
+                            //$.blockUI();
+                        },
+                        success: function (data) {
+                            if (data.success) {
+                                toastr["success"](data.message);
+                                reloadData();
+                            } else {
+                                toastr["error"](data.message);
+                            }
+                        },
+                        error: function (e) { console.log(e) },
+                        complete: function () {
+                            //unblock ui
+                            //$.unblockUI()
+                        }
+                });
+            }
+        });
+
+        function clearForm() {
+            $('#txtUserName').val('');
+            $('#txtFullName').val('');
+            $('#pwdPassword').val('');
+            $('#pwdConfirmPassword').val('');
+            $('#hdnUserID').val('0');
+        }
+
+        function reloadData() {
+            window.location.reload();
+        }
+    </script>
+}
+
+
