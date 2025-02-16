@@ -1,0 +1,77 @@
+﻿
+
+@model IEnumerable<ecom.Models.Category>
+
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>SN</td>
+                            <td>Category Name</td>
+                            <td>Category Code</td>
+                            <td>Created Date</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Category item in Model)
+                        {
+                            <tr>
+                                <td>@item.CategoryId</td>
+                                <td>@item.CategoryName</td>
+                                <td>@item.CategoryCode</td>
+                                <td>@item.CreatedAt</td>
+                                <td>
+                                    <button class="btn btn-warning">Edit</button>
+                                    <button class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+</table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+             
+                    <div class="form-group>
+                        <div>
+                            <label for="CategoryName" class="row-2">Name</label>
+                            <input type="text" class="form-control txtName" id="CategoryName" placeholder="Enter Category Name">
+                        </div>
+                        <div>
+                            <label for="CategoryCode" class="row-2">Code</label>
+                            <input type="text" class="form-control txtCode" id="CategoryCode" placeholder="Enter Category Code">
+                        </div>
+                        <div class="row-2 mt-2">
+                            <button type="submit" class="btn btn-success btnSave">Save</button> <!--Save Button-->
+                            <!--Cancel Button-->
+                            <button type="button" class="btn btn-danger btnCancel">Cancel</button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        /*$(document).on("click", ".btnSave", function () {
+            alert("Hii There");
+        });*/
+        $(document).on("click", ".btnCancel", function () {
+            alert("Cancel Button Clicked");
+        })
+        $(document).on("click", ".btnSave", function () {
+            var name = $(".txtName").val();
+            var code = $(".txtCode").val();
+            alert(name + " - " + code);
+        })
+    </script>
+}

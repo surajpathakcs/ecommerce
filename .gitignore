@@ -1,0 +1,61 @@
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build output
+bin/
+obj/
+Debug/
+Release/
+
+# NuGet Packages
+packages/
+*.nupkg
+project.lock.json
+global.json
+
+# Rider / JetBrains
+.idea/
+
+# ASP.NET specific
+App_Data/
+App_logs/
+node_modules/
+bower_components/
+dist/
+
+# Entity Framework Migrations
+Migrations/
+
+# Logs and Database
+*.log
+*.sqlite
+*.mdf
+*.ldf
+
+# Publish artifacts
+.publish/
+.Dockerfile
+docker-compose.override.yml
+
+# Environment Variables
+.env
+*.env
+
+# IIS and Deployment
+*.dbmdl
+*.bak
+*.cache
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Other files
+*.pid
+*.tar.gz
+Thumbs.db
+
