@@ -80,7 +80,30 @@
         $(document).on("click", ".btnSave", function () {
             var name = $(".txtName").val();
             var code = $(".txtCode").val();
-            alert(name + " - " + code);
+
+            if (name == "" || code == "") {
+                alert("Please fill all the fields");
+            }
+            else {
+                $.ajax({
+                    method: 'get',
+                    url: '@Url.Action("Save", "Category")?CategoryName=' + name + '&CategoryCode=' + code,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        success = response.success;
+                        alert(response.message);
+                    },
+                    error: function (response) {
+                        alert(response.message);
+                    }
+                });
+            }
+
+
+
+
+            
+
         })
     </script>
 }
