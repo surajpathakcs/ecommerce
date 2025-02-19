@@ -129,8 +129,23 @@
         });
 
 
+        //delete ajax
+        $(document).on("click", ".btnDlt", function () {
+            var id = $(this).data('key');
 
-
+            $.ajax({
+                method:'get',
+                contentType:"application/json; charset=utf8",
+                url:"@Url.Action("Delete","Category")?id="+id,
+                success: function(res){
+                    loadTable();
+                    alert(res.message);
+                },
+                error:function(res){
+                    alert(res.message);
+                }
+            })
+        })
 
 
 
@@ -174,11 +189,11 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
                         success = response.success;
-                        alert(response.message);
                         if (success == true) {
-                            clearForm();
                             loadTable();
+                            clearForm();
                         }
+                        alert(response.message);
                     },
                     error: function (response) {
                         alert(response.message);
