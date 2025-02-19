@@ -10,5 +10,6 @@ namespace ecom.DAO
         }
 
         public DbSet<Category> Category { get; set; }
+        public DbSet<ProductItem> ProductItem { get; set; }
     }   
 }
