@@ -6,8 +6,8 @@ namespace ecom.Models
     {
         [Key]
         public int ProductItemId { get; set; }
-        public string ProductItemName { get; set; }
-        public string ProductItemCode { get; set; }
+        public string ProductName { get; set; }
+        public string ProductCode { get; set; }
         public int CategoryId { get; set; }
         public string Description { get; set; }
         public decimal UnitPrice { get; set; }
