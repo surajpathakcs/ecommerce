@@ -1,3 +1,4 @@
+using ecom.DAO;
 using ecom.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -6,11 +7,11 @@ namespace ecom.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        public ApplicationDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext db)
         {
-            _logger = logger;
+            _db = db;
         }
 
         public IActionResult Index()

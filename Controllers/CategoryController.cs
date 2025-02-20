@@ -95,6 +95,36 @@ namespace ecom.Controllers
                 });
             }
         }
+
+        //Delete JsonResult
+
+        public JsonResult Delete(int? id)
+        {
+            Category category = new Category();
+
+            var dbData = _db.Category.Where(x => x.CategoryId == id).FirstOrDefault();
+
+            if(dbData == null)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    Message = "Category not found"
+                });
+            }
+            else
+            {
+                _db.Category.Remove(dbData);
+                _db.SaveChanges();
+
+                return Json(new
+                {
+                    Success = true,
+                    Message = "Category deleted"
+                });
+            }
+
+        }
     }
 }
 
