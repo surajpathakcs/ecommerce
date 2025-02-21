@@ -72,16 +72,15 @@
         function loadTable() {
             $.ajax({
                 method: 'GET',
-                url: '/ProductItem/GetProducts',
+                url: '/ProductItem/GetProductItems',
                 success: function (res) {
                     var tableBody = $("table tbody");
-                    //tableBody.empty();
-                    var row = '';
+                    tableBody.empty();
                     $.each(res.data, function (index, product) {
-                         row += `<tr>
+                         var row = `<tr>
                                     <td>${index + 1}</td>
-                                    <td>${product.productName}</td>
-                                    <td>${product.productCode}</td>
+                                    <td>${product.productItemName}</td>
+                                    <td>${product.productItemCode}</td>
                                     <td>${product.categoryId}</td>
                                     <td>${product.description}</td>
                                     <td>${product.unitPrice}</td>
@@ -92,10 +91,10 @@
                                     </td>
                                 </tr>`;
 
-                        //tableBody.append(row);
+                        tableBody.append(row);
                     });
 
-                    $("table tbody").html(row)
+                    //$("table tbody").html(row)
                 },
                 error: function () {
                     alert("Failed to load data!");
@@ -110,7 +109,7 @@
             $(".txtDescription").val("");
             $(".txtPrice").val("");
             $(".txtThumbnail").val("");
-            $(".hdnId").val("");
+            $(".hdnId").val("0");
         }
 
         $(document).on("click", ".btnEdit", function () {
