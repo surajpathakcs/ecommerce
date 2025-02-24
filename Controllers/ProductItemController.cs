@@ -6,11 +6,16 @@ namespace ecom.Controllers
 {
     public class ProductItemController : Controller
     {
-        private  ApplicationDbContext _db;
+        private ApplicationDbContext _db;
 
         public ProductItemController(ApplicationDbContext db)
         {
             _db = db;
+        }
+
+        public IActionResult Cart()
+        {
+            return View();
         }
 
         public IActionResult Index()

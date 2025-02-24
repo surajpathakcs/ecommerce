@@ -1,5 +1,6 @@
 using ecom.DAO;
 using ecom.Models;
+using ecom.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -16,7 +17,10 @@ namespace ecom.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            DashboardVM dashboardvm = new DashboardVM();
+            dashboardvm.CategoryInfo = _db.Category.ToList();
+            dashboardvm.ProductItems = _db.ProductItem.ToList();
+            return View(dashboardvm);
         }
 
         public IActionResult Privacy()
