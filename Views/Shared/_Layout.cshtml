@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ecom</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ecom.styles.css" asp-append-version="true" />
 </head>
@@ -32,6 +33,12 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="ProductItem" asp-action="Index">Product Item</a>
                         </li>
                     </ul>
+                </div>
+                <!-- Cart on the right -->
+                <div class="d-flex align-items-center">
+                    <a class="nav-link text-dark" href="/ProductItem/Cart">
+                        <i class="bi bi-cart"></i> Cart
+                    </a>
                 </div>
             </div>
         </nav>

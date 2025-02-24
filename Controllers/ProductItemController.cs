@@ -6,11 +6,16 @@ namespace ecom.Controllers
 {
     public class ProductItemController : Controller
     {
-        private  ApplicationDbContext _db;
+        private ApplicationDbContext _db;
 
         public ProductItemController(ApplicationDbContext db)
         {
             _db = db;
+        }
+
+        public IActionResult Cart()
+        {
+            return View();
         }
 
         public IActionResult Index()
@@ -58,7 +63,7 @@ namespace ecom.Controllers
             }
             else
             {
-                var dbData = _db.ProductItem.FirstOrDefault(x => x.ProductItemId == hiddenId);
+                var dbData = _db.ProductItem.Where(x => x.ProductItemId == hiddenId).FirstOrDefault();
                 if (dbData == null)
                 {
                     return Json(new
@@ -90,7 +95,7 @@ namespace ecom.Controllers
 
         public JsonResult Edit(int id)
         {
-            var dbData = _db.ProductItem.FirstOrDefault(x => x.ProductItemId == id);
+            var dbData = _db.ProductItem.Where(x => x.ProductItemId == id).FirstOrDefault();
 
             if (dbData == null)
             {

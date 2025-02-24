@@ -174,9 +174,8 @@
             }
         })
         $(document).on("click", ".btnSave", function () {
-
-            var name = $(".txtName").val();
-            var code = $(".txtCode").val();
+            var name = encodeURIComponent($(".txtName").val()); // Encode special characters
+            var code = encodeURIComponent($(".txtCode").val());
             var hiddenId = $(".hdnId").val();
 
             if (name == "" || code == "") {

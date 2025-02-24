@@ -2,7 +2,7 @@
 {
     public class DashboardVM
     {
-        public List<Category> categoryinfo { get; set; }
-        public List<ProductItem> productitems { get; set; }
+        public List<Category> CategoryInfo { get; set; } = new List<Category>();
+        public List<ProductItem> ProductItems { get; set; }
     }
 }
