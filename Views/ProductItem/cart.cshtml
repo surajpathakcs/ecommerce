@@ -1,10 +1,15 @@
 ﻿<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-<div class="row">
+<div class="row mt-3">
     <div class="col-md-8">
-        <button type="button" class="btn btn-danger btnClearCart">
-            <i class="fas fa-trash"></i> Clear Cart
-        </button>
+        <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-danger btnClearCart">
+                <i class="fas fa-trash"></i> Clear Cart
+            </button>
+            <button type="button" class="btn btn-success btnCheckoutCart">
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+        </div>
         <div class="card mt-3">
             <div class="card-body">
                 <table class="table table-hover table-striped">
@@ -26,81 +31,3 @@
     </div>
 </div>
 
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            loadItems();
-        });
-
-        function loadItems() {
-            var pro = localStorage.getItem('ls_product') || '[]';
-            var obj = JSON.parse(pro);  // []
-
-            var htmls = '';
-
-            $.each(obj, function (i, x) {
-                htmls += '<tr>';
-                htmls += '<td>' + (i+1) + '</td>';
-                htmls += '<td>' + x.ProductName + '</td>';
-                htmls += '<td>' + x.UnitPrice + '</td>';
-                htmls += '<td><input data-key="' + x.Id + '" type="text" class="form-control txtQuantity" value="' + x.Quantity + '"></td>';
-                htmls += '<td>' + x.Total + '</td>';
-                htmls += '<td><button data-key="' + x.Id + '" type="button" class="btn btn-danger btn-sm btnRemoveItem"><i class="fas fa-trash"></i> Del</button></td>';
-                htmls += '</tr>';
-            })
-
-            $('.body-item').html(htmls);
-        }
-
-
-        $(document).on('click', '.btnClearCart', function () {
-            var ok = confirm('Are you sure to clear cart?')
-            if (ok) {
-                localStorage.removeItem('ls_product');
-                loadItems();
-            }
-        })
-
-
-        $(document).on('click', '.btnRemoveItem', function () {
-            var ok = confirm('Are you sure to remove this product?')
-            if (ok) {
-                var id = $(this).data('key');
-
-                var pro = localStorage.getItem('ls_product') || '[]';
-                var obj = JSON.parse(pro);  // []
-
-                obj = obj.filter(x => x.Id != id);
-
-                localStorage.setItem('ls_product', JSON.stringify(obj));
-                loadItems();
-            }
-        })
-
-
-        $(document).on('change', '.txtQuantity', function () {
-
-            var id = $(this).data('key'); // 3
-            var newQuantity = $(this).val();
-
-            var pro = localStorage.getItem('ls_product') || '[]';
-            var oldItem = JSON.parse(pro);  // []
-
-            var selectedItemArray = oldItem.filter(x => x.Id == id);
-            if (selectedItemArray.length <= 0) {
-                alert('Product Item Not Found')
-                return;
-            }
-
-            var selectedItem = selectedItemArray[0];
-
-            selectedItem.Quantity = newQuantity;
-            selectedItem.Total = +newQuantity * +selectedItem.UnitPrice
-
-
-            localStorage.setItem('ls_product', JSON.stringify(oldItem));
-            loadItems();
-        });
-    </script>
-}

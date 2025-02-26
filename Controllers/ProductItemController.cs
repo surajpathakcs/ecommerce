@@ -13,7 +13,7 @@ namespace ecom.Controllers
             _db = db;
         }
 
-        public IActionResult Cart()
+        public IActionResult Cart(int? id)
         {
             return View();
         }
