@@ -1,5 +1,6 @@
 ﻿using ecom.DAO;
 using ecom.Models;
+using ecom.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -12,6 +13,29 @@ namespace ecom.Controllers
         {
             _db = db;
         }
+        public IActionResult CategoryDetail(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var category = _db.Category.Where(x => x.CategoryId == id).ToList();
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            var productitem = _db.ProductItem.Where(x => x.CategoryId == id).ToList();
+
+            var viewmodel = new DashboardVM {
+                CategoryInfo = category,
+                ProductItems = productitem,
+            };
+
+            return View(viewmodel);
+        }
+        
         public IActionResult Index()
         {
             var datas = _db.Category.ToList();
