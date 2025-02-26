@@ -56,7 +56,7 @@
         {
             var swiperId = "swiper-" + category.CategoryId;
             <div class="category-section mt-5">
-                <h4 class="fw-bold">@category.CategoryName</h4>         
+                <h4 class="fw-bold">@category.CategoryName</h4>
                 <!--Swipper wrapper for smooth scroll carousel-->
                 <div class="swiper @swiperId">
                     <div class="swiper-wrapper p-2">
@@ -74,7 +74,7 @@
                                         <button type="button" class="btn btn-primary btn-sm btnCart" data-pk="@product.ProductItemId" data-name="@product.ProductItemName" data-price="@product.UnitPrice">
                                             <i class="fa fa-cart-plus"></i> Add to Cart
                                         </button>
-                                        <button type="button" class="btn btn-outline-success btn-sm btnView" data-pk="@product.ProductItemId">
+                                        <button type="button" class="btn btn-outline-success btn-sm btnView" data-bs-toggle="modal" data-bs-target="#mdlViewMore_@product.ProductItemId" data-pk="@product.ProductItemId">
                                             <i class="fa fa-eye"></i> View
                                         </button>
                                     </div>
@@ -87,6 +87,47 @@
         }
     }
 </div>
+
+<!--Model-->
+@foreach(var item in Model.ProductItems){
+    
+    <div class="modal fade" id="mdlViewMore_@item.ProductItemId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                    <div class="card shadow-sm p-2">
+                        <div class="gap-3 d-flex flex-row">
+                            <div class="">
+                                <img src="@item.Thumbnail" style="object-fit:cover;height:300px;width:250px;" alt="Alternate Text" />
+                            </div>
+                            <div class="card flex-grow-1 p-4">
+                                <div class="gap-2 h-100">
+                                    <h5 class="card-title fw-bold mb-3"><strong> @item.ProductItemName</strong></h5>
+                                    <h6 class="card-subtitle  mb-3 text-success fw-bold"><strong> $@item.UnitPrice</strong></h6>
+                                    <p class="card-text text-muted"> @item.Description</p>
+                                    <!-- Cart on the bottom -->
+                                </div>
+                                <div class="text-bottom">
+                                    <button type="button" class="btn btn-primary btn-sm btnCart flex-bottom mb-1" data-pk="@item.ProductItemId" data-name="@item.ProductItemName" data-price="@item.UnitPrice">
+                                        <i class="fa fa-cart-plus"></i> Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+}
+
 
 <!-- Swiper.js -->
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
@@ -136,5 +177,12 @@
             localStorage.setItem('ls_product', JSON.stringify(oldItemsJSON));
             alert('Product Added in Cart');
         });
+
+
+        /*
+        $(document).on('click', '.btnView', function () {
+            $(this).data("pk");
+            $('#mdlViewMore').modal('show');
+        });*/
     </script>
 }
