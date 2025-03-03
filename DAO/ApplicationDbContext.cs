@@ -11,5 +11,7 @@ namespace ecom.DAO
 
         public DbSet<Category> Category { get; set; }
         public DbSet<ProductItem> ProductItem { get; set; }
+        public DbSet<ProductOrderDetail> ProductOrderDetail { get; set; }
+        public DbSet<ProductOrderMaster> ProductOrderMaster { get; set; }
     }   
 }

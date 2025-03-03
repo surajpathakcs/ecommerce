@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     loadItems();
+    CalcuateAndShowTotal();
 });
 
 function loadItems() {
@@ -28,6 +29,7 @@ $(document).on('click', '.btnClearCart', function () {
     if (ok) {
         localStorage.removeItem('ls_product');
         loadItems();
+        CalcuateAndShowTotal();
     }
 })
 
@@ -44,6 +46,7 @@ $(document).on('click', '.btnRemoveItem', function () {
 
         localStorage.setItem('ls_product', JSON.stringify(obj));
         loadItems();
+        CalcuateAndShowTotal();
     }
 })
 
@@ -64,9 +67,82 @@ $(document).on('change', '.txtQuantity', function () {
 
     var selectedItem = selectedItemArray[0];
     selectedItem.Quantity = newQuantity;
-    selectedItem.Total = +newQuantity * +selectedItem.UnitPrice
+    selectedItem.Total = +newQuantity * +selectedItem.UnitPrice;
 
 
     localStorage.setItem('ls_product', JSON.stringify(oldItem));
     loadItems();
+    CalcuateAndShowTotal();
 });
+
+/*
+$(document).on('click', '.btnCheckoutCart', function () {
+        $('btnCheckoutCartmodel").modal(show);
+        no need for this code anymore
+});
+
+*/
+
+
+$(document).on('click', '.txtCartSubmit', function () {
+    var mast = {
+        Fullname: $('.txtCartFullname').val() || '',
+        MobileNo: $('.txtCartMobileNo').val() || '',
+        Email: $('.txtCartEmail').val() || '',
+        Address: $('.txtCartAddress').val() || '',
+        GrandTotal: $('.tdGrandTotal').html() || '',
+    };
+    if (mast.Fullname == '') {
+        alert('Enter Fullname')
+    } else if (mast.MobileNo == '') {
+        alert('Enter Mobile No')
+    } else {
+        var oldItems = localStorage.getItem('ls_product') || '[]';
+        var oldItemsJson = JSON.parse(oldItems);  //  []
+
+        var payload = {
+            mast: mast,
+            detail: oldItemsJson
+        };
+
+
+    }
+    $.ajax({
+        method: 'post',
+        url: 'SaveOrder',
+        contentType: 'application/json;charset=utf-8;',
+        data: JSON.stringify(payload),
+        success: function (resp) {
+            console.log(resp.data);
+            console.log(resp);
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
+
+});
+
+
+function clearCloseModal() {
+    $('.txtCartFullname').val('');
+    $('.txtCartMobileNo').val('');
+    $('.txtCartEmail').val('');
+    $('.txtCartAddress').val('');
+    $('#mdlCheckout').modal('hide');
+}
+
+
+
+function CalcuateAndShowTotal() {
+    var oldItems = localStorage.getItem('ls_product') || '[]';
+    var oldItemsJSON = JSON.parse(oldItems);  //  []
+
+
+    var grandTotal = 0;
+    $.each(oldItemsJSON, function (i, x) {
+        grandTotal += (x.UnitPrice * x.Quantity);
+    });
+
+    $('.tdGrandTotal').html(grandTotal);
+}
