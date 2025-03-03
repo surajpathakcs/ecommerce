@@ -118,8 +118,7 @@ $(document).on('click', '.txtCartSubmit', function () {
         data: JSON.stringify(payload),
         success: function (resp) {
             clearCloseModal();
-            debugger
-            console.log(resp.data)
+            localStorage.removeItem('ls_product');
             window.location.href = window.location.origin + "/OnlinePayment?orderId="+resp.data[0].productOrderMasterID
         },
         error: function (err) {
