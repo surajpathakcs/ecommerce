@@ -85,6 +85,10 @@ $(document).on('click', '.btnCheckoutCart', function () {
 
 
 $(document).on('click', '.txtCartSubmit', function () {
+    var ok = alert("Are you sure you want to purchase these Items?");
+    if (ok) {
+        alert("Purchas Placed Successfully");
+    }
     var mast = {
         Fullname: $('.txtCartFullname').val() || '',
         MobileNo: $('.txtCartMobileNo').val() || '',
@@ -113,8 +117,8 @@ $(document).on('click', '.txtCartSubmit', function () {
         contentType: 'application/json;charset=utf-8;',
         data: JSON.stringify(payload),
         success: function (resp) {
-            console.log(resp.data);
-            console.log(resp);
+            clearCloseModal();
+            window.location.href= window.location.origin+"/ProductOrder"
         },
         error: function (err) {
             console.log(err)
