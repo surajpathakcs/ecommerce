@@ -118,7 +118,9 @@ $(document).on('click', '.txtCartSubmit', function () {
         data: JSON.stringify(payload),
         success: function (resp) {
             clearCloseModal();
-            window.location.href= window.location.origin+"/ProductOrder"
+            debugger
+            console.log(resp.data)
+            window.location.href = window.location.origin + "/OnlinePayment?orderId="+resp.data[0].productOrderMasterID
         },
         error: function (err) {
             console.log(err)
