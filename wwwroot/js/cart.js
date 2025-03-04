@@ -75,13 +75,6 @@ $(document).on('change', '.txtQuantity', function () {
     CalcuateAndShowTotal();
 });
 
-/*
-$(document).on('click', '.btnCheckoutCart', function () {
-        $('btnCheckoutCartmodel").modal(show);
-        no need for this code anymore
-});
-
-*/
 
 
 $(document).on('click', '.txtCartSubmit', function () {

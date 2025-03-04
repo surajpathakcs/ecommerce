@@ -38,6 +38,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
 
 
             </div>
@@ -92,7 +94,7 @@
                 </div>
 
                 <div class="modal-footer">
-                   <!--<button type="button" class="btn btn-success txtKhalti">Pay With Khalti</button>--> 
+                    <!--<button type="button" class="btn btn-success txtKhalti">Pay With Khalti</button>-->
                     <button type="button" class="btn btn-primary txtCartSubmit">SUBMIT</button>
                 </div>
             </div>
@@ -100,37 +102,4 @@
     </div>
 
 
-@section Scripts{
-    <script>
-        
-
-        $(document).on('click', '.txtKhalti', function () {
-            var ok = confirm('Are you sure to pay via Khalti?')
-            if (ok) {
-                payload = {
-                    Amount: +$('.tdGrandTotal').html(),
-                    RedirectUrl: 'http://localhost:5136'
-                };
-
-                $.ajax({
-                    method: 'post',
-                    contentType: "application/json; charset=utf-8",
-                    url: '@Url.Action("KhaltiPaymentInitiate", "OnlinePayment")',
-                    data: JSON.stringify(payload),
-                    success: function (rsp) {
-                        if (rsp.success) {
-                            var khalti = JSON.parse(rsp.data);
-
-                            window.location.href = khalti.payment_url;
-                        } else {
-                            alert(rsp.message)
-                        }
-                    },
-                    error: function (er) {
-
-                    },
-                })
-            }
-        }
-    </script>
-}
+  
