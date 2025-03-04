@@ -1,0 +1,33 @@
+﻿@model ecom.Models.ViewModel.KhaltiPaymentSuccessVM
+
+
+<div class="container text-center mt-5">
+    <div class="card shadow-sm p-4">
+        <h2 class="text-success">Payment Successful</h2>
+        <p>Your payment has been processed successfully.</p>
+
+        <table class="table table-bordered mt-3">
+            <tbody>
+                <tr>
+                    <th>Transaction ID</th>
+                    <td>@Model.Pidx</td>
+                </tr>
+                <tr>
+                    <th>Payment URL</th>
+                    <td><a href="@Model.Pidx" target="_blank">@Model.payment_url</td>
+                </tr>
+                <tr>
+                    <th>Expires At</th>
+                    <td>@Model.expires_at</td>
+                </tr>
+                <tr>
+                    <th>Expires In</th>
+                    <td>@Model.expires_in minutes</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/" class="btn btn-primary mt-3">Go to Homepage</a>
+    </div>
+</div>
+

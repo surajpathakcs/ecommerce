@@ -2,6 +2,9 @@
 using ecom.Models;
 using ecom.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace ecom.Controllers
 {
@@ -12,11 +15,66 @@ namespace ecom.Controllers
         {
             _db = db;
         }
-        [HttpPost]
-        public IActionResult Index()
+        [HttpGet,HttpPost]
+        public IActionResult Success(string pidx, string payment_url, string expires_at, int expires_in)
         {
-            return View();
+            var success = new KhaltiPaymentSuccessVM
+            {
+
+                Pidx = pidx,
+                payment_url = payment_url,
+                expires_at = expires_at,
+                expires_in = expires_in
+            };
+            return View(success);
         }
+
+        [HttpPost]
+        [Route("KhaltiPaymentInitiate")]
+        public async Task<object> KhaltiPaymentInitiate([FromBody] KhaltiPaymentInitVM vm)
+        {
+
+            string khalti_key = "23c3db9b228f4b88ac1ca9c2ecfa3b95";
+            var url = "https://dev.khalti.com/api/v2/epayment/initiate/";
+
+            var payload = new
+            {
+                return_url = vm.RedirectUrl + "/OnlinePayment/Success",
+                website_url = vm.RedirectUrl,
+                amount = vm.Amount * 100,
+                purchase_order_id = Guid.NewGuid().ToString(),
+                purchase_order_name = Guid.NewGuid().ToString(),
+                merchant_info = new
+                {
+                    name = "ramesh",
+                    email = "ramesh@gmail.com"
+                },
+                customer_info = new
+                {
+                    name = "Himalayan Colz Ecom",
+                    address = "Lalitpur "
+                },
+            };
+
+            var jsonPayload = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+            var client = new HttpClient();
+
+
+            client.DefaultRequestHeaders.Add("Authorization", "key " + khalti_key);
+
+            var response = await client.PostAsync(url, content);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            return Ok(new
+            {
+                Success = response.StatusCode == HttpStatusCode.OK,
+                Message = "OK",
+                Data = responseContent
+            });
+        }
+
 
         public IActionResult Index(int orderId)
         {
