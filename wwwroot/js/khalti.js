@@ -1,11 +1,20 @@
 ﻿$(document).on('click', '.btnKhalti', function () {
     var amount = parseFloat($('.grandTotal').data('amount'));
-    console.log("Amount from Data Attribute:", amount);
+
+    var fullName = $('.fullName').text().trim(); // Get name from the table
+    var email = $('.email').text().trim(); // Get email from the table
+    var address = $('.address').text().trim() || "N/A"; // Get address, default if empty
+    var purchase_order_id = $('.ProductOrderMID').val();
+
     var ok = confirm('Are you sure to pay via Khalti?')
     if (ok) {
         payload = {
             Amount: amount,
             RedirectUrl: 'http://localhost:5230',
+            FullName: fullName,
+            Email: email,
+            Address: address,
+            PurchaseOrderId: purchase_order_id
         };
 
         $.ajax({
