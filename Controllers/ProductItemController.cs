@@ -76,7 +76,9 @@ namespace ecom.Controllers
                     Fullname = vm.mast.Fullname,
                     MobileNo = vm.mast.MobileNo,
                     GrandTotal = vm.mast.GrandTotal,
-                    OrderDate = DateTime.Now
+                    OrderDate = DateTime.Now,
+                    PaymentStatus = "Pending",
+                    TransactionId = ""
                 };
 
                 _db.ProductOrderMaster.Add(m);

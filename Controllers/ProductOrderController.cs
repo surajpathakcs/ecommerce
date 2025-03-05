@@ -22,7 +22,8 @@ namespace ecom.Controllers
                 MobileNo = s.MobileNo,
                 OrderDate = s.OrderDate,
                 ProductOrderMasterID = s.ProductOrderMasterID,
-                ItemCount = _db.ProductOrderMaster.Where(w => w.ProductOrderMasterID == s.ProductOrderMasterID).Count()
+                PaymentStatus = s.PaymentStatus,
+                ItemCount = _db.ProductOrderDetail.Count(w => w.ProductOrderMasterID == s.ProductOrderMasterID)
             }).ToList();
             return View(orders);
         }

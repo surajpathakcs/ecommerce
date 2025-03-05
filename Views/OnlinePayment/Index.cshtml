@@ -18,10 +18,13 @@
                     <h4 class="card-title text-primary">Order Summary</h4>
                     <table class="table">
                         <tbody>
-                            <tr><td><strong>Fullname:</strong></td><td>@Model.mast.Fullname</td></tr>
-                            <tr><td><strong>Mobile No:</strong></td><td>@Model.mast.MobileNo</td></tr>
-                            <tr><td><strong>Email:</strong></td><td>@Model.mast.Email</td></tr>
+                            <input type="hidden" class="ProductOrderMID" value="@Model.mast.ProductOrderMasterID" />
+                            <tr><td><strong>Fullname:</strong></td><td class="fullName">@Model.mast.Fullname</td></tr>
+                            <tr><td><strong>Mobile No:</strong></td><td class="mobileNo">@Model.mast.MobileNo</td></tr>
+                            <tr><td><strong>Email:</strong></td><td class="email">@Model.mast.Email</td></tr>
+                            <tr><td><strong>Payment :</strong></td><td class="status">@Model.mast.PaymentStatus</td></tr>
                             <tr><td><strong>Address:</strong></td><td>@Model.mast.Address</td></tr>
+                            <tr><td><strong>Order Date:</strong></td><td class="date">@Model.mast.OrderDate</td></tr>
                             <tr>
                                 <td><strong>Grand Total:</strong></td>
                                 <td class="text-success grandTotal fw-bold" data-amount="@Model.mast.GrandTotal">

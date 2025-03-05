@@ -13,6 +13,7 @@
                             <th>Order Date</th>
                             <th>Grand Total</th>
                             <th>Item No</th>
+                            <th>Payment Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -26,6 +27,7 @@
                                 <td>@item.OrderDate</td>
                                 <td>@item.GrandTotal</td>
                                 <td>@item.ItemCount</td>
+                                <td class="paymentStatus">@item.PaymentStatus</td> <!-- Display payment status here -->
 
                                 <td>
                                     <button class="btn btn-success btn-sm btnViewDetail" data-key="@item.ProductOrderMasterID">
@@ -41,8 +43,13 @@
     </div>
 </div>
 
+
 @section Scripts {
     <script>
+        $(document).ready(function(){
+            var item = $('.paymentStatus').val();
+            console.log(item+1)
+        })
         $(document).on('click', '.btnViewDetail', function () {
             var id = $(this).data("key"); // Correct way to get the data attribute
 

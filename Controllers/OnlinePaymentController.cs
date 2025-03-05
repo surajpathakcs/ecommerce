@@ -15,17 +15,23 @@ namespace ecom.Controllers
         {
             _db = db;
         }
-        [HttpGet,HttpPost]
-        public IActionResult Success(string pidx, string payment_url, string expires_at, int expires_in)
+        [HttpGet, HttpPost]
+        public IActionResult Success(string pidx,string transaction_id, string purchase_order_id,int amount,string status ,string purchase_order_name)
         {
+            int orderId = int.Parse(purchase_order_id);
+
             var success = new KhaltiPaymentSuccessVM
             {
 
-                Pidx = pidx,
-                payment_url = payment_url,
-                expires_at = expires_at,
-                expires_in = expires_in
+                pidx = pidx,
+                amount = amount / 100, // Convert to proper amount (Khalti sends in paisa)
+                purchase_order_id = purchase_order_id,
+                status = status,
+                purchase_order_name = purchase_order_name,
             };
+            var DBContent = _db.ProductOrderMaster.Where(x => x.ProductOrderMasterID == orderId).FirstOrDefault();
+            DBContent.PaymentStatus = status;
+            _db.SaveChanges();
             return View(success);
         }
 
@@ -42,12 +48,12 @@ namespace ecom.Controllers
                 return_url = vm.RedirectUrl + "/OnlinePayment/Success",
                 website_url = vm.RedirectUrl,
                 amount = vm.Amount * 100,
-                purchase_order_id = Guid.NewGuid().ToString(),
+                purchase_order_id = vm.PurchaseOrderId,
                 purchase_order_name = Guid.NewGuid().ToString(),
                 merchant_info = new
                 {
-                    name = "ramesh",
-                    email = "ramesh@gmail.com"
+                    name = vm.FullName,
+                    email = vm.Email
                 },
                 customer_info = new
                 {
