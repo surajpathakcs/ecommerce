@@ -27,7 +27,14 @@
                                 <td>@item.OrderDate</td>
                                 <td>@item.GrandTotal</td>
                                 <td>@item.ItemCount</td>
-                                <td class="paymentStatus">@item.PaymentStatus</td> <!-- Display payment status here -->
+                                <td>
+                                    <span class="badge rounded-pill
+                                    @(item.PaymentStatus == "Pending" ? "bg-warning" : "bg-success")">
+                                        @item.PaymentStatus
+                                    </span>
+                                </td>
+
+                                <!-- Display payment status here -->
 
                                 <td>
                                     <button class="btn btn-success btn-sm btnViewDetail" data-key="@item.ProductOrderMasterID">
@@ -46,9 +53,9 @@
 
 @section Scripts {
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             var item = $('.paymentStatus').val();
-            console.log(item+1)
+            console.log(item + 1)
         })
         $(document).on('click', '.btnViewDetail', function () {
             var id = $(this).data("key"); // Correct way to get the data attribute

@@ -4,7 +4,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-body">
-                <table class="table">
+                <table class="table table-hover table-striped">
                     <thead>
                         <tr>
                             <td>SN</td>
@@ -77,19 +77,19 @@
                     var tableBody = $("table tbody");
                     tableBody.empty();
                     $.each(res.data, function (index, product) {
-                         var row = `<tr>
-                                    <td>${index + 1}</td>
-                                    <td>${product.productItemName}</td>
-                                    <td>${product.productItemCode}</td>
-                                    <td>${product.categoryId}</td>
-                                    <td>${product.description}</td>
-                                    <td>${product.unitPrice}</td>
-                                    <td><img src="${product.thumbnail}" alt="Thumbnail" width="50"></td>
-                                    <td>
-                                        <button class="btn btn-warning btnEdit" data-key="${product.productItemId}">Edit</button>
-                                        <button class="btn btn-danger btnDlt" data-key="${product.productItemId}">Delete</button>
-                                    </td>
-                                </tr>`;
+                        var row = `<tr>
+                                            <td>${index + 1}</td>
+                                            <td>${product.productItemName}</td>
+                                            <td>${product.productItemCode}</td>
+                                            <td>${product.categoryId}</td>
+                                            <td>${product.description}</td>
+                                            <td>${product.unitPrice}</td>
+                                            <td><img src="${product.thumbnail}" alt="Thumbnail" width="50"></td>
+                                            <td>
+                                                <button class="btn btn-warning btnEdit" data-key="${product.productItemId}">Edit</button>
+                                                <button class="btn btn-danger btnDlt" data-key="${product.productItemId}">Delete</button>
+                                            </td>
+                                        </tr>`;
 
                         tableBody.append(row);
                     });
