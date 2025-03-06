@@ -1,61 +1,37 @@
-# Visual Studio files
-.vs/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-
-# Build output
+# Ignore build output directories
 bin/
 obj/
 Debug/
 Release/
 
-# NuGet Packages
-packages/
-*.nupkg
-project.lock.json
-global.json
-
-# Rider / JetBrains
-.idea/
-
-# ASP.NET specific
-App_Data/
-App_logs/
+# Ignore dependency directories (e.g., node_modules)
 node_modules/
+packages/
 bower_components/
 dist/
 
-# Entity Framework Migrations
-Migrations/
-
-# Logs and Database
+# Ignore temporary files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 *.log
+Thumbs.db
 *.sqlite
-*.mdf
-*.ldf
 
-# Publish artifacts
+# Ignore local environment files
+.env
+*.env
+
+# Ignore publish artifacts
 .publish/
 .Dockerfile
 docker-compose.override.yml
 
-# Environment Variables
-.env
-*.env
-
-# IIS and Deployment
-*.dbmdl
-*.bak
-*.cache
-
-# Resharper
+# Ignore other IDE-specific folders
+.idea/
 _ReSharper*/
 *.[Rr]e[Ss]harper
 
-# Other files
-*.pid
-*.tar.gz
-Thumbs.db
-
+# Ignore static files but allow the Bootstrap files
+!lib/bootstrap/
