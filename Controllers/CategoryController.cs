@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace ecom.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController : BaseController
     {
         public ApplicationDbContext _db;
         public CategoryController(ApplicationDbContext db)
@@ -38,6 +38,13 @@ namespace ecom.Controllers
         
         public IActionResult Index()
         {
+
+            // Only show category page if the user is an admin
+            if (!IsAdmin)
+            {
+                return RedirectToAction("AdminAccess", "Admin");
+            }
+
             var datas = _db.Category.ToList();
             return View(datas);
         }
