@@ -10,8 +10,8 @@ namespace ecom.Controllers
         {
             get
             {
-                return User.IsInRole("Admin");
-                /*return !string.IsNullOrEmpty(HttpContext.Session.GetString("ADMIN_ID"));*/
+                /*return User.IsInRole("Admin");*/
+                return !string.IsNullOrEmpty(HttpContext.Session.GetString("ADMIN_ID"));
             }
         }
 

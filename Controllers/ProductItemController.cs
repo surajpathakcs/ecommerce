@@ -17,6 +17,7 @@ namespace ecom.Controllers
 
         
 
+
         public IActionResult Index()
         {
             // Only show category page if the user is an admin

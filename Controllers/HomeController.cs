@@ -26,8 +26,6 @@ namespace ecom.Controllers
             dashboardvm.ProductItems = _db.ProductItem.ToList();
 
             ViewData["AdminLoggedIn"] = adminId != null;
-
-
             return View(dashboardvm);
         }
 
