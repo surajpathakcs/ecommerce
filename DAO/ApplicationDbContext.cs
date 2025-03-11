@@ -13,5 +13,6 @@ namespace ecom.DAO
         public DbSet<ProductItem> ProductItem { get; set; }
         public DbSet<ProductOrderDetail> ProductOrderDetail { get; set; }
         public DbSet<ProductOrderMaster> ProductOrderMaster { get; set; }
+        public DbSet<Admin> Admins { get; set; }
     }   
 }

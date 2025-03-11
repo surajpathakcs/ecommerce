@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,26 +28,37 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ProductItem" asp-action="Index">Product Item</a>
-                        </li>
+                        @if (!string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("ADMIN_ID")))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ProductItem" asp-action="Index">Product Item</a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <!-- Cart on the right -->
+                @if (!string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("ADMIN_ID")))
+                {
+                    <div class="d-flex align-items-center">
+                        <a class="nav-link text-dark" asp-controller="Admin" asp-action="Logout">
+                            Logout
+                        </a>
+                    </div>
+                }
+
                 <div class="d-flex align-items-center">
                     <a class="nav-link text-dark" href="/ProductOrder/Index">
                         View Purchase
                     </a>
+                    <div class="d-flex align-items-center">
+                        <a class="nav-link text-dark" href="/Cart/Index">
+                            <i class="bi bi-cart"></i> Cart
+                        </a>
+                    </div>
                 </div>
-                <div class="d-flex align-items-center">
-                    <a class="nav-link text-dark" href="/ProductItem/Cart">
-                        <i class="bi bi-cart"></i> Cart
-                    </a>
-                </div>
-            </div>
         </nav>
     </header>
     <div class="container">

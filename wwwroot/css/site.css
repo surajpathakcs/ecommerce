@@ -137,3 +137,41 @@ body {
 
 
 /*----------------------------------------------------------*/
+.hero-gradient {
+    background-image: url(https://img.freepik.com/free-vector/realistic-dark-tropical-leaves-background_52683-32881.jpg?t=st=1741244101~exp=1741247701~hmac=8a0d96a602ea931c4c59cd0d7eeb80825c886d81ae06d7cd89dfe4476a11597f&w=1380); /* Softer Bootstrap Blue to Purple */
+    color: white;
+    object-fit:contain;
+    border-radius: 10px;
+    padding: 40px 20px;
+}
+
+/* Custom card shadow and hover effect */
+.card-custom {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+    .card-custom:hover {
+        transform: scale(1.01);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+.category-section h4 {
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* Styling for category table */
+.categories-table th, .categories-table td {
+    vertical-align: middle;
+    padding: 6px 8px;
+}
+
+.categories-table a {
+    color: #2e8b57;
+    text-decoration: none;
+}
+
+    .categories-table a:hover {
+        text-decoration: underline;
+    }

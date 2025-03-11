@@ -17,9 +17,15 @@ namespace ecom.Controllers
 
         public IActionResult Index()
         {
+            // Check if an admin is logged in
+            var adminId = HttpContext.Session.GetString("ADMIN_ID");
+
+
             DashboardVM dashboardvm = new DashboardVM();
             dashboardvm.CategoryInfo = _db.Category.ToList();
             dashboardvm.ProductItems = _db.ProductItem.ToList();
+
+            ViewData["AdminLoggedIn"] = adminId != null;
             return View(dashboardvm);
         }
 
