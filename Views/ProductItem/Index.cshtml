@@ -166,18 +166,28 @@
         });
 
         $(document).on("click", ".btnSave", function () {
-            var name = $(".txtName").val();
+           /* var name = $(".txtName").val();
             var code = $(".txtCode").val();
             var category = $(".txtCategory").val();
             var description = $(".txtDescription").val();
             var price = $(".txtPrice").val();
             var thumbnail = $(".txtThumbnail").val();
-            var hiddenId = $(".hdnId").val();
+            var hiddenId = $(".hdnId").val(); */
 
-            if (name == "" || code == "" || category == "" || price == "" || thumbnail == "") {
+            var createproductdto = {
+                ProductItemName: $(".txtName").val();
+                ProductItemCode: $("#txtCode").val(),
+                CategoryId: $("#txtCategory").val(),
+                Description: $("#txtDescription").val(),
+                UnitPrice: $("#txtPrice").val(),
+                Thumbnail: $("#txtThumbnail").val()
+            }
+
+           /* if (name == "" || code == "" || category == "" || price == "" || thumbnail == "") {
                 alert("Please fill all required fields.");
-            } else {
-                $.ajax({
+            } else {  */
+
+              /*  $.ajax({
                     method: 'GET',
                     url: '@Url.Action("Save", "ProductItem")?hiddenId=' + hiddenId +
                         '&ProductItemName=' + name +
@@ -197,7 +207,25 @@
                     error: function (response) {
                         alert(response.message);
                     }
-                });
+                }); */
+
+            $.ajax({
+                method:'POST',
+                url:'@Url.Action("Create","ProductItem")',
+                contentType: 'application/json',
+                data: JSON.stringify(createproductdto),
+                success: function (response) {
+                    if (response.success) {
+                        alert('Product created successfully');
+                    } else {
+                        alert('Error: ' + response.message);
+                    },
+                    error: function(xhr, status, error) {
+                        alert('An error occurred: ' + error);
+                    }
+            });
+
+
             }
         });
     </script>

@@ -1,4 +1,6 @@
 using ecom.DAO;
+using ecom.Services.Interfaces;
+using ecom.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -9,6 +11,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
     );
+//For Services Interface
+builder.Services.AddScoped<IProductService, ProductService>();
 
 // Add session services
 builder.Services.AddDistributedMemoryCache(); // Required for session

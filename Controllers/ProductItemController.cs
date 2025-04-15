@@ -1,24 +1,29 @@
 ﻿using ecom.DAO;
+using ecom.Dto.ProductDtos;
 using ecom.Models;
 using ecom.Models.ViewModel;
+using ecom.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ecom.Controllers
 {
     public class ProductItemController : BaseController
     {
-        private ApplicationDbContext _db;
+        /*        private ApplicationDbContext _db;*/
+        /*  Instead use IProductService here  */
 
-        public ProductItemController(ApplicationDbContext db)
+        private readonly IProductService _productservice;
+
+        public ProductItemController(IProductService productservice)
         {
-            _db = db;
+            _productservice = productservice;
         }
 
 
         
 
 
-        public IActionResult Index()
+        public async IActionResult Index()
         {
             // Only show category page if the user is an admin
             if (!IsAdmin)
@@ -26,7 +31,7 @@ namespace ecom.Controllers
                 return RedirectToAction("AdminAccess", "Admin");
             }
 
-            var datas = _db.ProductItem.ToList();
+            var datas = await _productservice.GetAll();
             return View(datas);
         }
 
@@ -47,6 +52,11 @@ namespace ecom.Controllers
             return Json(new { data = datas });
         }
 
+        public async Task<IActionResult> Create([FromBody] CreateProductDto createproductdto)
+        {
+            await _productservice.Create(createproductdto);
+            return RedirectToAction("Index");
+        }
         public JsonResult Save(int hiddenId, string ProductItemName, string ProductItemCode, int CategoryId, string Description, decimal UnitPrice, string Thumbnail)
         {
             if (hiddenId == 0)
