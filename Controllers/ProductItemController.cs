@@ -1,7 +1,6 @@
 ﻿using ecom.DAO;
 using ecom.Dto.ProductDtos;
-using ecom.Models;
-using ecom.Models.ViewModel;
+using System.Threading.Tasks;
 using ecom.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +22,7 @@ namespace ecom.Controllers
         
 
 
-        public async IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             // Only show category page if the user is an admin
             if (!IsAdmin)
@@ -31,24 +30,14 @@ namespace ecom.Controllers
                 return RedirectToAction("AdminAccess", "Admin");
             }
 
-            var datas = await _productservice.GetAll();
+            var datas =await _productservice.GetAll();
             return View(datas);
         }
 
 
-        public JsonResult GetProductItems()
+        public async Task<JsonResult> GetProductItems()
         {
-            var datas = _db.ProductItem.Select(x => new
-            {
-                productItemId = x.ProductItemId,
-                productItemName = x.ProductItemName,
-                productItemCode = x.ProductItemCode,
-                categoryId = x.CategoryId,
-                description = x.Description,
-                unitPrice = x.UnitPrice,
-                thumbnail = x.Thumbnail
-            }).ToList();
-
+            var datas = await _productservice.GetAll();
             return Json(new { data = datas });
         }
 
@@ -57,6 +46,56 @@ namespace ecom.Controllers
             await _productservice.Create(createproductdto);
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> Update([FromBody] UpdateProductDto updateproductdto)
+        {
+            await _productservice.Update(updateproductdto);
+            return RedirectToAction("Index");
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest(new { message = "Invalid product ID" });
+            }
+
+            var success = await _productservice.Delete(id.Value);
+            if (!success) return NotFound(new { message = "The Product Item was not found" });
+
+            return Ok(new { message = "Product deleted successfully" });
+        }
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*      
         public JsonResult Save(int hiddenId, string ProductItemName, string ProductItemCode, int CategoryId, string Description, decimal UnitPrice, string Thumbnail)
         {
             if (hiddenId == 0)
@@ -109,7 +148,9 @@ namespace ecom.Controllers
                 }
             }
         }
-
+       
+*/
+/*
         public JsonResult Edit(int id)
         {
             var dbData = _db.ProductItem.Where(x => x.ProductItemId == id).FirstOrDefault();
@@ -131,32 +172,30 @@ namespace ecom.Controllers
                 });
             }
         }
+*/
+/*       public JsonResult Delete(int? id)
+       {
+           var dbData = _db.ProductItem.FirstOrDefault(x => x.ProductItemId == id);
 
-        public JsonResult Delete(int? id)
-        {
-            var dbData = _db.ProductItem.FirstOrDefault(x => x.ProductItemId == id);
+           if (dbData == null)
+           {
+               return Json(new
+               {
+                   success = false,
+                   message = "Product item not found"
+               });
+           }
+           else
+           {
+               _db.ProductItem.Remove(dbData);
+               _db.SaveChanges();
 
-            if (dbData == null)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = "Product item not found"
-                });
-            }
-            else
-            {
-                _db.ProductItem.Remove(dbData);
-                _db.SaveChanges();
+               return Json(new
+               {
+                   success = true,
+                   message = "Product item deleted successfully"
+               });
+           }
+       }
+*/
 
-                return Json(new
-                {
-                    success = true,
-                    message = "Product item deleted successfully"
-                });
-            }
-        }
-
-
-    }
-}

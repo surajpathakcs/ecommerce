@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ecom.Models.ProductItem>
+﻿@model IEnumerable<ecom.Dto.ProductItemDtos.ProductItemDto>
 
 <div class="row">
     <div class="col-md-8">
@@ -63,6 +63,8 @@
     </div>
 </div>
 
+
+
 @section Scripts {
     <script>
         $(document).ready(function () {
@@ -78,18 +80,18 @@
                     tableBody.empty();
                     $.each(res.data, function (index, product) {
                         var row = `<tr>
-                                            <td>${index + 1}</td>
-                                            <td>${product.productItemName}</td>
-                                            <td>${product.productItemCode}</td>
-                                            <td>${product.categoryId}</td>
-                                            <td>${product.description}</td>
-                                            <td>${product.unitPrice}</td>
-                                            <td><img src="${product.thumbnail}" alt="Thumbnail" width="50"></td>
-                                            <td>
-                                                <button class="btn btn-warning btnEdit" data-key="${product.productItemId}">Edit</button>
-                                                <button class="btn btn-danger btnDlt" data-key="${product.productItemId}">Delete</button>
-                                            </td>
-                                        </tr>`;
+                                 <td>${index + 1}</td>
+                                 <td>${product.productItemName}</td>
+                                 <td>${product.productItemCode}</td>
+                                 <td>${product.categoryId}</td>
+                                 <td>${product.description}</td>
+                                 <td>${product.unitPrice}</td>
+                                 <td><img src="${product.thumbnail}" alt="Thumbnail" width="50"></td>
+                                 <td>
+                                     <button class="btn btn-warning btnEdit" data-key="${product.productItemId}">Edit</button>
+                                     <button class="btn btn-danger btnDlt" data-key="${product.productItemId}">Delete</button>
+                                 </td>
+                             </tr>`;
 
                         tableBody.append(row);
                     });
@@ -110,9 +112,11 @@
             $(".txtPrice").val("");
             $(".txtThumbnail").val("");
             $(".hdnId").val("0");
-        }
+        };
 
-        $(document).on("click", ".btnEdit", function () {
+
+
+        $(document).on("click", ".btnEdit", function () { ///////////////////////        EDIT
             var id = $(this).data('key');
 
             $.ajax({
@@ -138,13 +142,14 @@
             });
         });
 
-        $(document).on("click", ".btnDlt", function () {
+
+        $(document).on("click", ".btnDlt", function () { ///////////////////////        DELETE
             var id = $(this).data('key');
 
             $.ajax({
                 method: 'GET',
                 contentType: "application/json; charset=utf-8",
-                url: '@Url.Action("Delete", "ProductItem")?id=' + id,
+                url: '@Url.Action("Delete", "ProductItem")?id=' + id,        
                 success: function (res) {
                     loadTable();
                     alert(res.message);
@@ -155,7 +160,9 @@
             });
         });
 
-        $(document).on("click", ".btnCancel", function () {
+
+
+        $(document).on("click", ".btnCancel", function () {///////////////////////        CANCEL
             var ok = confirm("Are you sure you want to cancel?");
             if (ok) {
                 clearForm();
@@ -165,15 +172,9 @@
             }
         });
 
-        $(document).on("click", ".btnSave", function () {
-           /* var name = $(".txtName").val();
-            var code = $(".txtCode").val();
-            var category = $(".txtCategory").val();
-            var description = $(".txtDescription").val();
-            var price = $(".txtPrice").val();
-            var thumbnail = $(".txtThumbnail").val();
-            var hiddenId = $(".hdnId").val(); */
 
+
+        $(document).on("click", ".btnSave", function () {///////////////////////        SAVE
             var createproductdto = {
                 ProductItemName: $(".txtName").val();
                 ProductItemCode: $("#txtCode").val(),
@@ -182,36 +183,9 @@
                 UnitPrice: $("#txtPrice").val(),
                 Thumbnail: $("#txtThumbnail").val()
             }
-
-           /* if (name == "" || code == "" || category == "" || price == "" || thumbnail == "") {
-                alert("Please fill all required fields.");
-            } else {  */
-
-              /*  $.ajax({
-                    method: 'GET',
-                    url: '@Url.Action("Save", "ProductItem")?hiddenId=' + hiddenId +
-                        '&ProductItemName=' + name +
-                        '&ProductItemCode=' + code +
-                        '&CategoryId=' + category +
-                        '&Description=' + description +
-                        '&UnitPrice=' + price +
-                        '&Thumbnail=' + thumbnail,
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response) {
-                        if (response.success == true) {
-                            loadTable();
-                            clearForm();
-                        }
-                        alert(response.message);
-                    },
-                    error: function (response) {
-                        alert(response.message);
-                    }
-                }); */
-
             $.ajax({
-                method:'POST',
-                url:'@Url.Action("Create","ProductItem")',
+                method: 'POST',
+                url: '@Url.Action("Create", "ProductItem")',
                 contentType: 'application/json',
                 data: JSON.stringify(createproductdto),
                 success: function (response) {
@@ -223,10 +197,8 @@
                     error: function(xhr, status, error) {
                         alert('An error occurred: ' + error);
                     }
-            });
+                });
 
-
-            }
         });
     </script>
 }
