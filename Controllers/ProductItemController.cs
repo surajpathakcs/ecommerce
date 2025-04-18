@@ -38,7 +38,7 @@ namespace ecom.Controllers
         public async Task<JsonResult> GetProductItems()
         {
             var datas = await _productservice.GetAll();
-            return Json(new { data = datas });
+            return Json(new { data = datas});
         }
 
         public async Task<IActionResult> Create([FromBody] CreateProductDto createproductdto)
