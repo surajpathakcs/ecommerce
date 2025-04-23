@@ -13,7 +13,7 @@ namespace ecom.Controllers
         {
             _db = db;
         }
-        public IActionResult CategoryDetail(int id)
+        public IActionResult CategoryDetail(int? id)
         {
             if (id == null)
             {

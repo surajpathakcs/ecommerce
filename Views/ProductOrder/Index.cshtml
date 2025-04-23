@@ -1,50 +1,58 @@
 ﻿@model IEnumerable<ecom.Models.ProductOrderMasterVM>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-hover table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Fullname</th>
-                            <th>Mobile No</th>
-                            <th>Order Date</th>
-                            <th>Grand Total</th>
-                            <th>Item No</th>
-                            <th>Payment Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.ProductOrderMasterID</td>
-                                <td>@item.Fullname</td>
-                                <td>@item.MobileNo</td>
-                                <td>@item.OrderDate</td>
-                                <td>@item.GrandTotal</td>
-                                <td>@item.ItemCount</td>
-                                <td>
-                                    <span class="badge rounded-pill
-                                    @(item.PaymentStatus == "Pending" ? "bg-warning" : "bg-success")">
-                                        @item.PaymentStatus
-                                    </span>
-                                </td>
-
-                                <!-- Display payment status here -->
-
-                                <td>
-                                    <button class="btn btn-success btn-sm btnViewDetail" data-key="@item.ProductOrderMasterID">
-                                        <i class="fa fa-eye"></i> VIEW ITEM
-                                    </button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border-0 shadow-sm rounded-3" style="background-color: var(--background);">
+                <div class="card-header border-0 py-3" style="background-color: var(--coffee-dark); border-radius: 0.5rem 0.5rem 0 0;">
+                    <h4 class="text-white mb-0 fw-light">Order History</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="table-responsive">
+                        <table class="table" style="color: var(--text-dark);">
+                            <thead>
+                                <tr>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">ID</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Name</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Mobile</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Date</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Total</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Items</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Status</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr style="border-bottom: 1px solid var(--coffee-light); opacity: 0.7;">
+                                        <td>@item.ProductOrderMasterID</td>
+                                        <td>@item.Fullname</td>
+                                        <td>@item.MobileNo</td>
+                                        <td>@item.OrderDate</td>
+                                        <td style="color: var(--coffee-dark); font-weight: 500;">@item.GrandTotal</td>
+                                        <td>@item.ItemCount</td>
+                                        <td>
+                                            <span class="badge rounded-pill"
+                                                  style="background-color: @(item.PaymentStatus == "Pending" ? "#D2B48C" : "#6F4E37");
+                                                       color: @(item.PaymentStatus == "Pending" ? "#6F4E37" : "white");
+                                                       padding: 5px 10px; font-weight: 400;">
+                                                @item.PaymentStatus
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btnViewDetail"
+                                                    style="background-color: var(--coffee-medium); color: white;"
+                                                    data-key="@item.ProductOrderMasterID">
+                                                <i class="fa fa-eye me-1"></i> View
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

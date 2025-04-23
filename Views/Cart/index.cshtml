@@ -1,33 +1,36 @@
 ﻿@model ecom.Models.ViewModel.DashboardVM
 
-<div class="container mt-4">
-    <div class="row">
-        <!-- Left Side: Cart Items -->
-        <div class="col-md-8">
-            <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-danger btnClearCart">
-                    <i class="fas fa-trash"></i> Clear Cart
-                </button>
-                <button type="button" class="btn btn-success btnCheckoutCart" data-bs-toggle="modal" data-bs-target="#btnCheckoutCart">
-                    <i class="fas fa-credit-card"></i> Proceed to Checkout
-                </button>
-            </div>
-
-            <div class="card mt-3 shadow-sm border-0">
-                <div class="card-header bg-success text-white">
-                    <h5 class="fw-bold mb-0">Shopping Cart</h5>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <!-- Main Content Area -->
+        <div class="col-md-9">
+            <div class="card border-0 shadow-sm rounded-3" style="background-color: var(--background);">
+                <div class="card-header border-0 py-3" style="background-color: var(--coffee-dark); border-radius: 0.5rem 0.5rem 0 0;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="text-white mb-0 fw-light">Your Shopping Cart</h4>
+                        <div>
+                            <button type="button" class="btn btn-sm btnClearCart me-2" style="background-color: var(--background); color: var(--coffee-dark);">
+                                <i class="fas fa-trash-alt me-1"></i> Clear
+                            </button>
+                            <button type="button" class="btn btn-sm text-white btnCheckoutCart" style="background-color: var(--coffee-medium);" data-bs-toggle="modal" data-bs-target="#btnCheckoutCart">
+                                Checkout <i class="fas fa-arrow-right ms-1"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-striped">
+
+                <div class="card-body px-4">
+                    <!-- Cart Items Table -->
+                    <div class="table-responsive mt-2">
+                        <table class="table table-borderless" style="color: var(--text-dark);">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
-                                    <th>Total</th>
-                                    <th>Action</th>
+                                    <th scope="col" class="ps-0" style="color: var(--coffee-medium);">ID</th>
+                                    <th scope="col" style="color: var(--coffee-medium);">Product</th>
+                                    <th scope="col" style="color: var(--coffee-medium);">Price</th>
+                                    <th scope="col" style="color: var(--coffee-medium);">Qty</th>
+                                    <th scope="col" style="color: var(--coffee-medium);">Total</th>
+                                    <th scope="col" class="text-end pe-0" style="color: var(--coffee-medium);">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="body-item">
@@ -36,11 +39,15 @@
                         </table>
                     </div>
 
-                    <div class="row justify-content-end mt-4">
-                        <div class="col-6 col-md-5">
-                            <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded shadow-sm">
-                                <span class="h5 mb-0">Grand Total:</span>
-                                <span class="h4 mb-0 text-success tdGrandTotal"></span>
+                    <!-- Divider -->
+                    <hr style="border-color: var(--coffee-light); opacity: 0.3;">
+
+                    <!-- Total Section -->
+                    <div class="d-flex justify-content-end mt-4 mb-2">
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span style="color: var(--coffee-dark); font-weight: 500;">Grand Total:</span>
+                                <span class="h4 mb-0 tdGrandTotal" style="color: var(--coffee-dark);"></span>
                             </div>
                         </div>
                     </div>
@@ -50,49 +57,33 @@
     </div>
 </div>
 
-<!-- Checkout Payment Modal -->
+<!-- Checkout Modal -->
 <div class="modal fade" id="btnCheckoutCart" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-success text-white">
-                <h5 class="modal-title" id="checkoutModalLabel">Complete Your Order</h5>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-3" style="background-color: var(--background);">
+            <div class="modal-header border-0" style="background-color: var(--coffee-dark); border-radius: 0.5rem 0.5rem 0 0;">
+                <h5 class="modal-title text-white fw-light" id="checkoutModalLabel">Complete Your Order</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        Fullname
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control txtCartFullname" />
-                    </div>
+            <div class="modal-body p-4" style="color: var(--text-dark);">
+                <div class="mb-4">
+                    <label class="form-label small" style="color: var(--coffee-medium);">Full Name</label>
+                    <input type="text" class="form-control txtCartFullname" style="border-radius: 5px; border: 1px solid var(--coffee-light); padding: 10px 15px; background-color: var(--background);" />
                 </div>
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        Mobile No
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control txtCartMobileNo" />
-                    </div>
+                <div class="mb-4">
+                    <label class="form-label small" style="color: var(--coffee-medium);">Mobile Number</label>
+                    <input type="text" class="form-control txtCartMobileNo" style="border-radius: 5px; border: 1px solid var(--coffee-light); padding: 10px 15px; background-color: var(--background);" />
                 </div>
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        Email
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control txtCartEmail" />
-                    </div>
+                <div class="mb-4">
+                    <label class="form-label small" style="color: var(--coffee-medium);">Email Address</label>
+                    <input type="email" class="form-control txtCartEmail" style="border-radius: 5px; border: 1px solid var(--coffee-light); padding: 10px 15px; background-color: var(--background);" />
                 </div>
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        Address
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control txtCartAddress" />
-                    </div>
+                <div class="mb-4">
+                    <label class="form-label small" style="color: var(--coffee-medium);">Delivery Address</label>
+                    <textarea class="form-control txtCartAddress" rows="2" style="border-radius: 5px; border: 1px solid var(--coffee-light); padding: 10px 15px; background-color: var(--background);"></textarea>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary txtCartSubmit">SUBMIT</button>
+                <div class="d-grid gap-2 mt-4">
+                    <button type="button" class="btn py-2 text-white txtCartSubmit" style="background-color: var(--coffee-medium); border-radius: 5px;">Complete Purchase</button>
                 </div>
             </div>
         </div>

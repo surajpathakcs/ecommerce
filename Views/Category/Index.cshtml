@@ -1,49 +1,59 @@
-﻿
+﻿@model IEnumerable<ecom.Models.Category>
 
-@model IEnumerable<ecom.Models.Category>
-
-
-<div class="row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <td>SN</td>
-                            <td>Category Name</td>
-                            <td>Category Code</td>
-                            <td>Created Date</td>
-                            <td>Action</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- No foreach here, data will be loaded using JavaScript -->
-                    </tbody>
-                </table>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Category List -->
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm rounded-3" style="background-color: var(--background);">
+                <div class="card-header border-0 py-3" style="background-color: var(--coffee-dark); border-radius: 0.5rem 0.5rem 0 0;">
+                    <h4 class="text-white mb-0 fw-light">Categories</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="table-responsive">
+                        <table class="table" style="color: var(--text-dark);">
+                            <thead>
+                                <tr>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">SN</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Category Name</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Category Code</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Created Date</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- No foreach here, data will be loaded using JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-             
-                    <div class="form-group>
-                        <div>
-                            <label for="CategoryName" class="row-2">Name</label>
-                            <input type="text" class="form-control txtName" id="CategoryName" placeholder="Enter Category Name">
+
+        <!-- Category Form -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-3" style="background-color: var(--background);">
+                <div class="card-header border-0 py-3" style="background-color: var(--coffee-dark); border-radius: 0.5rem 0.5rem 0 0;">
+                    <h4 class="text-white mb-0 fw-light">Category Details</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <label for="CategoryName" class="form-label" style="color: var(--coffee-medium);">Name</label>
+                            <input type="text" class="form-control txtName" id="CategoryName" placeholder="Enter Category Name"
+                                   style="border: 1px solid var(--coffee-light); background-color: var(--background);">
                         </div>
-                        <div>
-                            <label for="CategoryCode" class="row-2">Code</label>
-                            <input type="text" class="form-control txtCode" id="CategoryCode" placeholder="Enter Category Code">
+                        <div class="mb-3">
+                            <label for="CategoryCode" class="form-label" style="color: var(--coffee-medium);">Code</label>
+                            <input type="text" class="form-control txtCode" id="CategoryCode" placeholder="Enter Category Code"
+                                   style="border: 1px solid var(--coffee-light); background-color: var(--background);">
                         </div>
-                        <div class="row-2 mt-2">
-                            <input type="hidden" class="hdnId"/>
-                            <button type="submit" class="btn btn-success btnSave">Save</button> <!--Save Button-->
-                            <!--Cancel Button-->
-                            <button type="button" class="btn btn-danger btnCancel">Cancel</button>
+                        <div class="mt-4">
+                            <input type="hidden" class="hdnId" />
+                            <button type="submit" class="btn text-white btnSave" style="background-color: var(--coffee-medium);">Save</button>
+                            <button type="button" class="btn text-white btnCancel" style="background-color: var(--coffee-dark);">Cancel</button>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>

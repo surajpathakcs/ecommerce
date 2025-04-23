@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<ecom.Dto.ProductItemDtos.ProductItemDto>
 
+
 <div class="row">
     <div class="col-md-8">
         <div class="card">
@@ -63,6 +64,48 @@
     </div>
 </div>
 
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            loadTable();
+        });
+
+        function loadTable() {
+            $.ajax({
+                method: 'GET',
+                url: '/ProductItem/GetProductItems',
+                success: function (res) {
+                    var tableBody = $("table tbody");
+                    tableBody.empty();
+                    $.each(res.data, function (index, product) {
+                        var row = `<tr>
+                           <td>${index + 1}</td>
+                           <td>${product.productItemName}</td>
+                           <td>${product.productItemCode}</td>
+                           <td>${product.categoryId}</td>
+                           <td>${product.description}</td>
+                           <td>${product.unitPrice}</td>
+                           <td><img src="${product.thumbnail}" alt="Thumbnail" width="50"></td>
+                           <td>
+                               <button class="btn btn-warning btnEdit" data-key="${product.productItemId}">Edit</button>
+                               <button class="btn btn-danger btnDlt" data-key="${product.productItemId}">Delete</button>
+                           </td>
+                       </tr>`
+                        tableBody.append(row);
+                    });
+
+                    //$("table tbody").html(row)
+                },
+                error: function () {
+                    alert("Failed to load data!");
+                }
+            });
+        };
+
+    </script>
+};
 
 
 <script src="~/js/site.js"></script>
