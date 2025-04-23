@@ -1,0 +1,43 @@
+# Ignore build output directories
+.vs/
+bin/
+obj/
+Debug/
+Release/
+
+# Ignore dependency directories (e.g., node_modules)
+node_modules/
+packages/
+bower_components/
+
+# Ignore the dist folder but allow lib/bootstrap
+dist/
+!wwwroot/lib/bootstrap/dist/
+
+# Ignore static files but allow the Bootstrap files
+!lib/bootstrap/
+
+# Ignore temporary files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.log
+Thumbs.db
+*.sqlite
+
+# Ignore local environment files
+.env
+*.env
+
+# Ignore publish artifacts
+.publish/
+.Dockerfile
+docker-compose.override.yml
+
+# Ignore other IDE-specific folders
+.idea/
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+

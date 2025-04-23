@@ -1,0 +1,36 @@
+﻿@model ecom.Models.ViewModel.KhaltiPaymentSuccessVM
+
+<div class="container text-center mt-5">
+    <div class="card shadow-sm p-4">
+        <h2 class="text-success">🎉 Payment Successful!</h2>
+        <p>Your payment has been processed successfully.</p>
+
+        <table class="table table-bordered mt-3">
+            <tbody>
+                <tr>
+                    <th>Transaction ID</th>
+                    <td>@Model.pidx</td>
+                </tr>
+                <tr>
+                    <th>Amount Paid</th>
+                    <td>Rs. @Model.amount</td>
+                </tr>
+                <tr>
+                    <th>Order ID</th>
+                    <td>@Model.purchase_order_id</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>@Model.status</td>
+                </tr>
+                <tr>
+                    <th>Order Name</th>
+                    <td>@Model.purchase_order_name</td>
+                </tr>
+                
+            </tbody>
+        </table>
+
+        <a href="/" class="btn btn-primary mt-3">Go to Homepage</a>
+    </div>
+</div>
