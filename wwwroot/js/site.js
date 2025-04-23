@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    loadTable();
+    loadItems();
 });
 
 function loadTable() {
@@ -107,6 +107,8 @@ $(document).on("click", ".btnCancel", function () {///////////////////////      
 
 
 $(document).on("click", ".btnSave", function () {///////////////////////        SAVE
+
+    alert("Helloo");
     var createproductdto = {
         ProductItemName: $(".txtName").val(),
         ProductItemCode: $(".txtCode").val(),
