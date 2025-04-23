@@ -87,7 +87,6 @@
                         alert("Failed to load data!");
                     }
                 });
-        }
 
 
 
@@ -173,10 +172,13 @@
                 alert("Not Cancelled");
             }
         })
+
         $(document).on("click", ".btnSave", function () {
             var name = encodeURIComponent($(".txtName").val()); // Encode special characters
             var code = encodeURIComponent($(".txtCode").val());
             var hiddenId = $(".hdnId").val();
+
+            
 
             if (name == "" || code == "") {
                 alert("Please fill all the fields");
@@ -201,10 +203,12 @@
             }
 
 
-
-
             
 
         })
+
+
+        }
+
     </script>
 }

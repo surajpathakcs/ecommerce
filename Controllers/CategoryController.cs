@@ -28,14 +28,15 @@ namespace ecom.Controllers
 
             var productitem = _db.ProductItem.Where(x => x.CategoryId == id).ToList();
 
-            var viewmodel = new DashboardVM {
+            var viewmodel = new DashboardVM
+            {
                 CategoryInfo = category,
                 ProductItems = productitem,
             };
 
             return View(viewmodel);
         }
-        
+
         public IActionResult Index()
         {
 

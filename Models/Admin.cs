@@ -5,7 +5,7 @@ namespace ecom.Models
     public class Admin
     {
         [Key]
-        public int AdminId { get; set; }
+        public int AdminId { get; set; } 
         [Required]
         public string Username { get; set; }
 
