@@ -6,5 +6,6 @@ public interface IProductService{
     Task<List<ProductItemDto>> GetAll();
     Task Create (CreateProductDto dto);
     Task Update (UpdateProductDto dto);
-    Task <bool> Delete(int id);
+    Task<ProductItemDto> GetById(int id);
+    Task<bool> Delete(int id);
 }

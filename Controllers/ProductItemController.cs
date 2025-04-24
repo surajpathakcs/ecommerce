@@ -33,6 +33,18 @@ namespace ecom.Controllers
             var datas =await _productservice.GetAll();
             return View(datas);
         }
+        [HttpGet]
+        public async Task<JsonResult> GetById(int id)
+        {
+            var product = await _productservice.GetById(id);
+
+            if (product == null)
+            {
+                return Json(new { success = false, message = "Product not found" });
+            }
+
+            return Json(new { success = true, data = product });
+        }
 
 
         public async Task<JsonResult> GetProductItems()
@@ -41,15 +53,25 @@ namespace ecom.Controllers
             return Json(new { data = datas});
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductDto createproductdto)
         {
             await _productservice.Create(createproductdto);
-            return RedirectToAction("Index");
+            return Json(new { success = true, message = "Product created" });
         }
+
+        [HttpPost]
         public async Task<IActionResult> Update([FromBody] UpdateProductDto updateproductdto)
         {
-            await _productservice.Update(updateproductdto);
-            return RedirectToAction("Index");
+            try
+            {
+                await _productservice.Update(updateproductdto);
+                return Json(new { success = true, message = "Product updated" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
 
         [HttpDelete]

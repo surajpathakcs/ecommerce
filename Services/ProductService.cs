@@ -68,6 +68,23 @@ public class ProductService : IProductService
 
         await _db.SaveChangesAsync();
     }
+    public async Task<ProductItemDto> GetById(int id)
+    {
+        var product = await _db.ProductItem.FindAsync(id);
+        if (product == null) return null;
+
+        return new ProductItemDto
+        {
+            ProductItemId = product.ProductItemId,
+            ProductItemName = product.ProductItemName,
+            ProductItemCode = product.ProductItemCode,
+            CategoryId = product.CategoryId,
+            Description = product.Description,
+            UnitPrice = product.UnitPrice,
+            Thumbnail = product.Thumbnail
+        };
+    }
+
 
     public async Task<bool> Delete(int id)
     {
