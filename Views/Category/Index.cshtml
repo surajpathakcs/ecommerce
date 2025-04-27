@@ -1,49 +1,60 @@
-﻿
+﻿@model IEnumerable<ecom.Models.Category>
 
-@model IEnumerable<ecom.Models.Category>
-
-
-<div class="row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <td>SN</td>
-                            <td>Category Name</td>
-                            <td>Category Code</td>
-                            <td>Created Date</td>
-                            <td>Action</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- No foreach here, data will be loaded using JavaScript -->
-                    </tbody>
-                </table>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Category List -->
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm rounded-3" style="background-color: var(--background);">
+                <div class="card-header border-0 py-3" style="background-color: var(--coffee-dark); border-radius: 0.5rem 0.5rem 0 0;">
+                    <h4 class="text-white mb-0 fw-light">Categories</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="table-responsive">
+                        <table class="table" style="color: var(--text-dark);">
+                            <thead>
+                                <tr>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">SN</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Category Name</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Category Code</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Created Date</th>
+                                    <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- No foreach here, data will be loaded using JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-             
-                    <div class="form-group>
-                        <div>
-                            <label for="CategoryName" class="row-2">Name</label>
-                            <input type="text" class="form-control txtName" id="CategoryName" placeholder="Enter Category Name">
+
+        <!-- Category Form -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-3" style="background-color: var(--background);">
+                <div class="card-header border-0 py-3" style="background-color: var(--coffee-dark); border-radius: 0.5rem 0.5rem 0 0;">
+                    <h4 class="text-white mb-0 fw-light">Category Details</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <label for="CategoryName" class="form-label" style="color: var(--coffee-medium);">Name</label>
+                            <input type="text" class="form-control txtName" id="CategoryName" placeholder="Enter Category Name"
+                                   style="border: 1px solid var(--coffee-light); background-color: var(--background);">
                         </div>
-                        <div>
-                            <label for="CategoryCode" class="row-2">Code</label>
-                            <input type="text" class="form-control txtCode" id="CategoryCode" placeholder="Enter Category Code">
+                        <div class="mb-3">
+                            <label for="CategoryCode" class="form-label" style="color: var(--coffee-medium);">Code</label>
+                            <input type="text" class="form-control txtCode" id="CategoryCode" placeholder="Enter Category Code"
+                                   style="border: 1px solid var(--coffee-light); background-color: var(--background);">
                         </div>
-                        <div class="row-2 mt-2">
-                            <input type="hidden" class="hdnId"/>
-                            <button type="submit" class="btn btn-primary btnSave">Save</button> <!--Save Button-->
-                            <!--Cancel Button-->
-                            <button type="button" class="btn btn-danger btnCancel">Cancel</button>
+                        <div class="mt-4">
+                            <input type="hidden" class="hdnId" />
+                            <button type="submit" class="btn text-white btnSave" style="background-color: var(--coffee-medium);">Save</button>
+                            <button type="button" class="btn text-white btnCancel" style="background-color: var(--coffee-dark);">Cancel</button>
+
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -61,35 +72,33 @@
 
 
         function loadTable() {
-            $.ajax({
-                method: 'GET',
-                url: '/Category/GetCategories', // Fetch data from controller
-                success: function (res) {
-                    var tableBody = $("table tbody");
-                    tableBody.empty(); // Clear existing rows
+             $.ajax({
+                    method: 'GET',
+                    url: '/Category/GetCategories', // Fetch data from controller
+                    success: function (res) {
+                        var tableBody = $("table tbody");
+                        tableBody.empty(); // Clear existing rows
 
-                    $.each(res.data, function (index, category) {
-                        var row = `<tr>
-                                    <td>${index + 1}</td>
-                                    <td>${category.categoryName}</td>
-                                    <td>${category.categoryCode}</td>
-                                    <td>${category.createdAt}</td>
-                                    <td>
-                                        <button class="btn btn-warning btnEdit" data-key="${category.categoryId}">Edit</button>
-                                        <button class="btn btn-danger btnDlt" data-key="${category.categoryId}">Delete</button>
-                                    </td>
-                                </tr>`;
+                        $.each(res.data, function (index, category) {
+                            var row = `<tr>
+                            <td>${index + 1}</td>
+                            <td>${category.categoryName}</td>
+                            <td>${category.categoryCode}</td>
+                            <td>${category.createdAt}</td>
+                            <td>
+                                <button class="btn btn-warning btnEdit" data-key="${category.categoryId}">Edit</button>
+                                <button class="btn btn-danger btnDlt" data-key="${category.categoryId}">Delete</button>
+                            </td>
+                        </tr>`;
 
-                        tableBody.append(row);
-                    });
-                },
-                error: function () {
-                    alert("Failed to load data!");
-                }
-            });
+                            tableBody.append(row);
+                        });
+                    },
+                    error: function () {
+                        alert("Failed to load data!");
+                    }
+                });
 
-
-        }
 
 
 
@@ -169,45 +178,44 @@
                     $(".txtCode").val("");
                     alert("Cancelled");
 
-                }
-                else {
-                    alert("Not Cancelled");
-                }
-            })
+            }
+            else {
+                alert("Not Cancelled");
+            }
+        })
 
-            $(document).on("click", ".btnSave", function () {
-                var name = encodeURIComponent($(".txtName").val()); // Encode special characters
-                var code = encodeURIComponent($(".txtCode").val());
-                var hiddenId = $(".hdnId").val();
+        $(document).on("click", ".btnSave", function () {
+            var name = encodeURIComponent($(".txtName").val()); // Encode special characters
+            var code = encodeURIComponent($(".txtCode").val());
+            var hiddenId = $(".hdnId").val();
 
-                alert("error found");
-                if (name == "" || code == "") {
-                    alert("Please fill all the fields");
-                }
-                else {
-                    $.ajax({
-                        method: 'get',
-                        url: '@Url.Action("Save", "Category")?hiddenId=' + hiddenId + '&CategoryName=' + name + '&CategoryCode=' + code,
-                        contentType: "application/json; charset=utf-8",
-                        success: function (response) {
-                            success = response.success;
-                            if (success == true) {
-                                loadTable();
-                                clearForm();
-                            }
-                            alert(response.message);
-                        },
-                        error: function (response) {
-                            alert(response.message);
+            
+
+            if (name == "" || code == "") {
+                alert("Please fill all the fields");
+            }
+            else {
+                $.ajax({
+                    method: 'get',
+                    url: '@Url.Action("Save", "Category")?hiddenId='+hiddenId+'&CategoryName=' + name + '&CategoryCode=' + code,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        success = response.success;
+                        if (success == true) {
+                            loadTable();
+                            clearForm();
                         }
                     });
                 }
 
 
 
+            
+
+        })
 
 
+        }
 
-            })
     </script>
 }

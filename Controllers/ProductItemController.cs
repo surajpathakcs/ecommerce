@@ -1,24 +1,28 @@
 ﻿using ecom.DAO;
-using ecom.Models;
-using ecom.Models.ViewModel;
+using ecom.Dto.ProductDtos;
+using System.Threading.Tasks;
+using ecom.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ecom.Controllers
 {
     public class ProductItemController : BaseController
     {
-        private ApplicationDbContext _db;
+        /*        private ApplicationDbContext _db;*/
+        /*  Instead use IProductService here  */
 
-        public ProductItemController(ApplicationDbContext db)
+        private readonly IProductService _productservice;
+
+        public ProductItemController(IProductService productservice)
         {
-            _db = db;
+            _productservice = productservice;
         }
 
 
         
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             // Only show category page if the user is an admin
             if (!IsAdmin)
@@ -26,27 +30,94 @@ namespace ecom.Controllers
                 return RedirectToAction("AdminAccess", "Admin");
             }
 
-            var datas = _db.ProductItem.ToList();
+            var datas =await _productservice.GetAll();
             return View(datas);
         }
-
-
-        public JsonResult GetProductItems()
+        [HttpGet]
+        public async Task<JsonResult> GetById(int id)
         {
-            var datas = _db.ProductItem.Select(x => new
-            {
-                productItemId = x.ProductItemId,
-                productItemName = x.ProductItemName,
-                productItemCode = x.ProductItemCode,
-                categoryId = x.CategoryId,
-                description = x.Description,
-                unitPrice = x.UnitPrice,
-                thumbnail = x.Thumbnail
-            }).ToList();
+            var product = await _productservice.GetById(id);
 
-            return Json(new { data = datas });
+            if (product == null)
+            {
+                return Json(new { success = false, message = "Product not found" });
+            }
+
+            return Json(new { success = true, data = product });
         }
 
+
+        public async Task<JsonResult> GetProductItems()
+        {
+            var datas = await _productservice.GetAll();
+            return Json(new { data = datas});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateProductDto createproductdto)
+        {
+            await _productservice.Create(createproductdto);
+            return Json(new { success = true, message = "Product created" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update([FromBody] UpdateProductDto updateproductdto)
+        {
+            try
+            {
+                await _productservice.Update(updateproductdto);
+                return Json(new { success = true, message = "Product updated" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest(new { message = "Invalid product ID" });
+            }
+
+            var success = await _productservice.Delete(id.Value);
+            if (!success) return NotFound(new { message = "The Product Item was not found" });
+
+            return Ok(new { message = "Product deleted successfully" });
+        }
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*      
         public JsonResult Save(int hiddenId, string ProductItemName, string ProductItemCode, int CategoryId, string Description, decimal UnitPrice, string Thumbnail)
         {
             if (hiddenId == 0)
@@ -99,7 +170,9 @@ namespace ecom.Controllers
                 }
             }
         }
-
+       
+*/
+/*
         public JsonResult Edit(int id)
         {
             var dbData = _db.ProductItem.Where(x => x.ProductItemId == id).FirstOrDefault();
@@ -121,32 +194,30 @@ namespace ecom.Controllers
                 });
             }
         }
+*/
+/*       public JsonResult Delete(int? id)
+       {
+           var dbData = _db.ProductItem.FirstOrDefault(x => x.ProductItemId == id);
 
-        public JsonResult Delete(int? id)
-        {
-            var dbData = _db.ProductItem.FirstOrDefault(x => x.ProductItemId == id);
+           if (dbData == null)
+           {
+               return Json(new
+               {
+                   success = false,
+                   message = "Product item not found"
+               });
+           }
+           else
+           {
+               _db.ProductItem.Remove(dbData);
+               _db.SaveChanges();
 
-            if (dbData == null)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = "Product item not found"
-                });
-            }
-            else
-            {
-                _db.ProductItem.Remove(dbData);
-                _db.SaveChanges();
+               return Json(new
+               {
+                   success = true,
+                   message = "Product item deleted successfully"
+               });
+           }
+       }
+*/
 
-                return Json(new
-                {
-                    success = true,
-                    message = "Product item deleted successfully"
-                });
-            }
-        }
-
-
-    }
-}

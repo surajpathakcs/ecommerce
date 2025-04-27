@@ -3,109 +3,122 @@
 <!-- Swiper CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
 
-
-<div class="container mt-4">
-    <div class="row">
+<div class="container py-4">
+    <div class="row g-4">
         <!-- Left Side: Categories -->
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-success text-white">
-                    <h5 class="fw-bold mb-0">Categories</h5>
+        <div class="col-lg-3">
+            <div class="card border-0 rounded-3 shadow-sm">
+                <div class="card-header bg-brown text-white">
+                    <h5 class="fw-semibold mb-0">Categories</h5>
                 </div>
-                @* <div style="max-height: 250px; overflow-y: auto;"> *@
                 <ul class="list-group list-group-flush">
                     @foreach (var item in Model.CategoryInfo)
                     {
-                        <li class="list-group-item py-2">
-                            <a class="nav-link text-dark" href="/Category/CategoryDetail?id=@item.CategoryId">
+                        <li class="list-group-item py-2 border-bottom border-light">
+                            <a class="nav-link text-dark" href="/CategoryList/CategoryDetail?id=@item.CategoryId">
                                 @item.CategoryName
                             </a>
                         </li>
                     }
                 </ul>
-                @* </div> *@
             </div>
         </div>
 
-        <!-- Right Side: Main Banner Carousel -->
-        <div class="col-md-9">
-            <div class="flex">
-
-                <div class="col">
-                    <!-- Bootstrap Carousel -->
-                    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner rounded shadow-lg">
-                            <div class="carousel-item active">
-                                <img src="https://rukminim2.flixcart.com/fk-p-flap/1620/270/image/5ef3fe0c6c87bc5b.jpg?q=20" class="d-block w-100" alt="First slide" style="object-fit: cover; height: 140px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); transition: transform 0.3s ease;">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://rukminim2.flixcart.com/fk-p-flap/1620/270/image/373914b13f0b4dfb.jpg?q=20" class="d-block w-100" alt="Second slide" style="object-fit: cover; height: 140px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); transition: transform 0.3s ease;">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://rukminim2.flixcart.com/fk-p-flap/1620/270/image/bfdf65854780356a.jpeg?q=20" class="d-block w-100" alt="Third slide" style="object-fit: cover; height: 140px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); transition: transform 0.3s ease;">
+        <!-- Right Side: Content Area -->
+        <div class="col-lg-9">
+            <!-- Enhanced Carousel -->
+            <div class="card border-0 rounded-3 shadow-sm overflow-hidden mb-4">
+                <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item">
+                            <img src="https://www.yankodesign.com/images/design_news/2020/01/meet-tic-the-most-advanced-and-aesthetic-way-to-carry-your-toiletries-as-you-travel/oral_care_and_razor_kit_by_tic_01.jpg" class="d-block w-100" alt="Tech Gadgets Collection" style="height: 400px;filter: brightness(0.65); object-fit: cover;">
+                            <div class="carousel-caption d-none d-md-block text-start" style="background: rgba(0,0,0,0.4); border-radius: 8px; padding: 15px; max-width: 60%;">
+                                <h3 class="fw-bold">Premium Tech</h3>
+                                <p>The latest gadgets for the tech-savvy gentleman</p>
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="mt-5 shadow-lg">
-                    <div class="hero-gradient">
-                        <div class="container">
-                            <div class="row align-items-center">
-                                <div class="col-md-6">
-                                    <h1 class="display-4 fw-bold mb-4">Discover Amazing Deals</h1>
-                                    <p class="lead">Explore our wide range of products with unbeatable prices</p>
-                                    <button class="btn btn-light shopnow text-success fw-semibold px-4 py-2 rounded-pill">
-                                        Go To Cart
-                                    </button>
-                                </div>
+                        <div class="carousel-item active">
+                            <img src="https://luxurywatchbuyer.com/wp-content/uploads/2015/11/banner-1_1200x360.jpg" class="d-block w-100" alt="Premium Men's Watches" style="height: 400px;filter: brightness(0.65); object-fit: cover;">
+                            <div class="carousel-caption d-none d-md-block text-start" style="background: rgba(0,0,0,0.4); border-radius: 8px; padding: 15px; max-width: 60%;">
+                                <h3 class="fw-bold">Luxury Timepieces</h3>
+                                <p>Discover our collection of premium watches for the modern gentleman</p>
                             </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://marketplace.canva.com/EAFWHTt2pQ4/1/0/566w/canva-brown-white-modern-creative-special-coffee-promo-poster-QjmcgWizGJE.jpg" class="d-block w-100" alt="Premium Coffee Collection" style="height: 400px;filter: brightness(0.65); object-fit: cover;">
+                            <div class="carousel-caption d-none d-md-block text-start" style="background: rgba(0,0,0,0.4); border-radius: 8px; padding: 15px; max-width: 60%;">
+                                <h3 class="fw-bold">Artisanal Coffee</h3>
+                                <p>Hand-selected beans from the world's finest coffee regions</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Welcome Banner with Improved Design -->
+            <div class="card border-0 rounded-3 shadow-sm mb-4" style="background-color: #F5F1EA; border-left: 4px solid #6F4E37 !important;">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h2 class="fw-bold mb-3" style="color: #6F4E37;">Curated For Gentlemen</h2>
+                            <p class="text-muted mb-3">Discover our handpicked collection of premium gadgets, stylish apparel, and artisanal coffee</p>
+                            <button class="btn gotocart rounded-pill px-4" style="background-color: #6F4E37; color: white;">
+                                View Cart <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </div>
+                        <div class="col-md-4 d-none d-md-flex justify-content-end">
+                            <i class="bi bi-cup-hot" style="font-size: 3rem; color: #6F4E37;"></i>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>
 </div>
 
-<!-- Product Carousels for Each Category -->
-<div class="container mt-4">
+<!-- Product Sections -->
+<div class="container py-3">
     @foreach (var category in Model.CategoryInfo)
     {
         var categoryProducts = Model.ProductItems.Where(x => x.CategoryId == category.CategoryId).ToList();
         if (categoryProducts.Any())
         {
             var swiperId = "swiper-" + category.CategoryId;
-            <div class="category-section mt-5">
-                <h4 class="fw-bold">@category.CategoryName</h4>
-                <!-- Swiper wrapper for smooth scroll carousel -->
+            <div class="mb-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="fw-semibold">@category.CategoryName</h4>
+                </div>
+
                 <div class="swiper @swiperId">
-                    <div class="swiper-wrapper p-2">
+                    <div class="swiper-wrapper py-2">
                         @foreach (var product in categoryProducts)
                         {
-                            <!-- Swiper slide for smooth scroll carousel -->
                             <div class="swiper-slide">
-                                <div class="card card-custom border-0 rounded-3 h-100">
-                                    <div class="card-body d-flex flex-column align-items-center">
-                                        <img src="@product.Thumbnail" class="img-fluid rounded w-100" style="height: 200px; object-fit: cover;" alt="Product Image">
-                                        <h6 class="fw-bold mt-2 text-center">@product.ProductItemName</h6>
-                                        <span class="badge bg-success text-white">Rs @product.UnitPrice</span>
+                                <div class="card h-100 border-0 rounded-3 shadow-sm">
+                                    <img src="@product.Thumbnail" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Product Image">
+                                    <div class="card-body text-center">
+                                        <h6 class="card-title fw-semibold mb-2">@product.ProductItemName</h6>
+                                        <p class="text-brown fw-bold mb-3">Rs @product.UnitPrice</p>
                                     </div>
-                                    <div class="card-footer d-flex justify-content-between">
-                                        <button type="button" class="btn btn-primary btn-sm btnCart" data-pk="@product.ProductItemId" data-name="@product.ProductItemName" data-price="@product.UnitPrice">
-                                            <i class="fa fa-cart-plus"></i> Add to Cart
+                                    <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+                                        <button type="button" class="btn btn-sm btn-outline-brown btnCart" data-pk="@product.ProductItemId" data-name="@product.ProductItemName" data-price="@product.UnitPrice">
+                                            Add to Cart
                                         </button>
-                                        <button type="button" class="btn btn-outline-success btn-sm btnView" data-bs-toggle="modal" data-bs-target="#mdlViewMore_@product.ProductItemId" data-pk="@product.ProductItemId">
-                                            <i class="fa fa-eye"></i> View
+                                        <button type="button" class="btn btn-sm btn-brown btnView" data-bs-toggle="modal" data-bs-target="#mdlViewMore_@product.ProductItemId" data-pk="@product.ProductItemId">
+                                            View
                                         </button>
                                     </div>
                                 </div>
@@ -118,30 +131,25 @@
     }
 </div>
 
-<!-- Modal -->
+<!-- Product Modal -->
 @foreach (var item in Model.ProductItems)
 {
-    <div class="modal fade" id="mdlViewMore_@item.ProductItemId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <!-- Added modal-lg for larger width -->
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="card shadow-sm p-2">
-                        <div class="gap-3 d-flex flex-row">
-                            <div class="">
-                                <img src="@item.Thumbnail" style="object-fit:cover;height:300px;width:250px;" alt="Alternate Text" />
-                            </div>
-                            <div class="card flex-grow-1 p-4">
-                                <div class="gap-2 h-100">
-                                    <h5 class="card-title fw-bold mb-3"><strong>@item.ProductItemName</strong></h5>
-                                    <h6 class="card-subtitle mb-3 text-success fw-bold"><strong>$@item.UnitPrice</strong></h6>
-                                    <p class="card-text text-muted">@item.Description</p>
-                                </div>
-                                <div class="text-bottom">
-                                    <button type="button" class="btn btn-primary btn-sm btnCart flex-bottom mb-1" data-pk="@item.ProductItemId" data-name="@item.ProductItemName" data-price="@item.UnitPrice">
-                                        <i class="fa fa-cart-plus"></i> Add to Cart
-                                    </button>
-                                </div>
+    <div class="modal fade" id="mdlViewMore_@item.ProductItemId" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-3 overflow-hidden">
+                <div class="modal-body p-0">
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img src="@item.Thumbnail" class="img-fluid h-100" style="object-fit: cover;" alt="@item.ProductItemName">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="p-4">
+                                <h5 class="fw-bold mb-2">@item.ProductItemName</h5>
+                                <p class="text-brown fw-bold mb-3">Rs @item.UnitPrice</p>
+                                <p class="text-muted small">@item.Description</p>
+                                <button type="button" class="btn btn-brown btn-sm w-100 btnCart" data-pk="@item.ProductItemId" data-name="@item.ProductItemName" data-price="@item.UnitPrice">
+                                    Add to Cart
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -151,17 +159,50 @@
     </div>
 }
 
+<!-- Custom CSS for Cafe Theme -->
+<style>
+    .bg-brown {
+        background-color: #6F4E37;
+    }
+
+    .text-brown {
+        color: #6F4E37;
+    }
+
+    .btn-brown {
+        background-color: #6F4E37;
+        color: #fff;
+    }
+
+        .btn-brown:hover {
+            background-color: #5A3E2A;
+            color: #fff;
+        }
+
+    .btn-outline-brown {
+        color: #6F4E37;
+        border-color: #6F4E37;
+    }
+
+        .btn-outline-brown:hover {
+            background-color: #6F4E37;
+            color: #fff;
+        }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #FAF6F1;
+    }
+</style>
 
 <!-- Swiper.js -->
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 
 @section Scripts {
     <script>
-
-        $(document).on('click', '.shopnow', function () {
-            window.location.href = window.location.origin + "/ProductItem/Cart"
+        $(document).on('click', '.gotocart', function () {
+            window.location.href = window.location.origin + "/Cart/Index"
         })
-
 
         // Initialize Swiper for each category carousel
         document.addEventListener("DOMContentLoaded", function () {
@@ -170,10 +211,6 @@
                     slidesPerView: 4,
                     spaceBetween: 20,
                     loop: true,
-                    navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
-                    },
                     breakpoints: {
                         320: { slidesPerView: 1 },
                         480: { slidesPerView: 2 },

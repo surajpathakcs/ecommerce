@@ -58,9 +58,7 @@ body {
     transition: color 0.3s ease;
 }
 
-    .navbar-brand:hover {
-        color: var(--tropical-green) !important;
-    }
+ 
 
 .navbar-nav .nav-item .nav-link {
     color: #1e3a20 !important;
@@ -77,13 +75,10 @@ body {
         height: 2px;
         bottom: -5px;
         left: 50%;
-        background-color: var(--tropical-green);
         transition: all 0.3s ease;
     }
 
-    .navbar-nav .nav-item .nav-link:hover {
-        color: var(--tropical-green) !important;
-    }
+   
 
         .navbar-nav .nav-item .nav-link:hover::after {
             width: 100%;

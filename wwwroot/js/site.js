@@ -48,32 +48,32 @@ function clearForm() {
 
 
 
-$(document).on("click", ".btnEdit", function () { ///////////////////////        EDIT
-    var id = $(this).data('key');
+$(document).on("click", ".btnEdit", function () {
+    var id = $(this).data("key");
 
     $.ajax({
         method: 'GET',
-        contentType: "application/json; charset=utf-8",
-        url: '@Url.Action("Edit", "ProductItem")?id=' + id,
+        url: '/ProductItem/GetById?id=' + id,
         success: function (res) {
-            if (res.success == false) {
-                alert(res.message);
+            if (res.success) {
+                var product = res.data;
+
+                $(".txtName").val(product.productItemName);
+                $(".txtCode").val(product.productItemCode);
+                $(".txtCategory").val(product.categoryId);
+                $(".txtDescription").val(product.description);
+                $(".txtPrice").val(product.unitPrice);
+                $(".txtThumbnail").val(product.thumbnail);
+                $(".hdnId").val(product.productItemId);
             } else {
-                $(".txtName").val(res.data.productItemName);
-                $(".txtCode").val(res.data.productItemCode);
-                $(".txtCategory").val(res.data.categoryId);
-                $(".txtDescription").val(res.data.description);
-                $(".txtPrice").val(res.data.unitPrice);
-                $(".txtThumbnail").val(res.data.thumbnail);
-                $(".hdnId").val(res.data.productItemId);
+                alert(res.message);
             }
         },
-        error: function (res) {
-            alert(res.message);
+        error: function () {
+            alert("Failed to fetch product details.");
         }
     });
 });
-
 
 $(document).on("click", ".btnDlt", function () { ///////////////////////        DELETE
     var id = $(this).data('key');
@@ -104,11 +104,75 @@ $(document).on("click", ".btnCancel", function () {///////////////////////      
     }
 });
 
+$(document).on("click", ".btnSave", function () { ///////////////////////        SAVE
+    var id = $(".hdnId").val();
+    var createproductdto = {
+        ProductItemName: $(".txtName").val(),
+        ProductItemCode: $(".txtCode").val(),
+        CategoryId: parseInt($(".txtCategory").val()), // Parse as integer
+        Description: $(".txtDescription").val(),
+        UnitPrice: parseFloat($(".txtPrice").val()), // Parse as decimal
+        Thumbnail: $(".txtThumbnail").val()
+    };
 
+    if (id && id != "0") {
+        createproductdto.ProductItemId = parseInt(id); // Parse as integer
+        $.ajax({
+            method: 'POST',
+            url: '/ProductItem/Update', // Fixed: removed Url.Action, used direct path
+            contentType: 'application/json',
+            data: JSON.stringify(createproductdto),
+            success: function (response) {
+                alert("Updated successfully");
+                loadTable();
+                clearForm();
+            },
+            error: function (xhr) {
+                alert("Error updating: " + (xhr.responseJSON?.message || "Unknown error"));
+            }
+        });
+    } else {
+        $.ajax({
+            method: 'POST',
+            url: '/ProductItem/Create', // Fixed: removed Url.Action, used direct path
+            contentType: 'application/json',
+            data: JSON.stringify(createproductdto),
+            success: function (response) {
+                alert("Product created successfully");
+                loadTable();
+                clearForm();
+            },
+            error: function (xhr) {
+                alert("Error creating: " + (xhr.responseJSON?.message || "Unknown error"));
+            }
+        });
+    }
+});
 
-$(document).on("click", ".btnSave", function () {///////////////////////        SAVE
+// Fix the Delete button handler too
+$(document).on("click", ".btnDlt", function () { ///////////////////////        DELETE
+    var id = $(this).data('key');
 
-    alert("Helloo");
+    $.ajax({
+        method: 'DELETE', // Changed from GET to DELETE to match controller
+        url: '/ProductItem/Delete?id=' + id, // Fixed: removed Url.Action, used direct path
+        success: function (res) {
+            loadTable();
+            alert(res.message);
+        },
+        error: function (xhr) {
+            alert(xhr.responseJSON?.message || "Error deleting item");
+        }
+    });
+});
+
+// Fix the loadItems function that's called on document ready
+function loadItems() {
+    loadTable(); // This calls the correct function
+}
+
+/*$(document).on("click", ".btnSave", function () {///////////////////////        SAVE
+    var id = $(".hdnId").val();
     var createproductdto = {
         ProductItemName: $(".txtName").val(),
         ProductItemCode: $(".txtCode").val(),
@@ -116,23 +180,42 @@ $(document).on("click", ".btnSave", function () {///////////////////////        
         Description: $(".txtDescription").val(),
         UnitPrice: $(".txtPrice").val(),
         Thumbnail: $(".txtThumbnail").val()
-    }
-    $.ajax({
-        method: 'POST',
-        url: '@Url.Action("Create", "ProductItem")',
-        contentType: 'application/json',
-        data: JSON.stringify(createproductdto),
-        success: function (response) {
-            if (response.success) {
-                alert('Product created successfully');
-            } else {
-                alert('Error: ' + response.message);
-            }
-        },
-        error: function(xhr, status, error) {
-                alert('An error occurred: ' + error);
+    };
+
+    if (id && id != "0") {
+        createproductdto.ProductItemId = id;
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Action("Update", "ProductItem")',
+            contentType: 'application/json',
+            data: JSON.stringify(createproductdto),
+            success: function (response) {
+                alert("Updated successfully");
+                loadTable();
+                debugger;
+                clearForm();
+            },
+            error: function () {
+                alert("Error updating");
             }
         });
+    } else {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Action("Create", "ProductItem")',
+            contentType: 'application/json',
+            data: JSON.stringify(createproductdto),
+            success: function (response) {
+                alert("Product created successfully");
+                loadTable();
+                clearForm();
+            },
+            error: function () {
+                alert("Error creating");
+            }
+        });
+    }
 
 });
+*/
 
