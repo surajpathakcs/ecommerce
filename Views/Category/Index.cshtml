@@ -51,6 +51,7 @@
                             <input type="hidden" class="hdnId" />
                             <button type="submit" class="btn text-white btnSave" style="background-color: var(--coffee-medium);">Save</button>
                             <button type="button" class="btn text-white btnCancel" style="background-color: var(--coffee-dark);">Cancel</button>
+
                         </div>
                     </div>
                 </div>
@@ -63,7 +64,7 @@
     <script>
         /*$(document).on("click", ".btnSave", function () {
             alert("Hii There");
-        });*/
+        })*/
 
         $(document).ready(function () {
             loadTable(); // Fetch data when the page loads
@@ -105,77 +106,77 @@
 
 
 
-        function clearForm(){
-            $(".txtName").val("");
-            $(".txtCode").val("");
-            $(".hdnId").val("");
-        }
-        /*Edit button */
-        $(document).on("click", ".btnEdit", function () {
-            
-            var id = $(this).data('key');
-
-            $.ajax({
-                method: 'get',
-                contentType: "application/json; charset=utf-8",
-                url: '@Url.Action("Edit", "Category")?id=' + id,
-                success: function (res) {
-                    if(res.success == false){
-                        alert(res.message)
-                    }
-                    else{
-                        $(".txtName").val(res.data.categoryName);
-                        $(".txtCode").val(res.data.categoryCode);
-                        $(".hdnId").val(res.data.categoryId);
-
-                    }
-                },
-                error: function (res) {
-                    alert(res.message);
-                }
-            });
-
-        });
-
-
-        //delete ajax
-        $(document).on("click", ".btnDlt", function () {
-            var id = $(this).data('key');
-
-            $.ajax({
-                method:'get',
-                contentType:"application/json; charset=utf8",
-                url:"@Url.Action("Delete","Category")?id="+id,
-                success: function(res){
-                    loadTable();
-                    alert(res.message);
-                },
-                error:function(res){
-                    alert(res.message);
-                }
-            })
-        })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        $(document).on("click", ".btnCancel", function () {
-            var ok = confirm("Are you sure you want to cancel");
-            if (ok) {
+            function clearForm() {
                 $(".txtName").val("");
                 $(".txtCode").val("");
-                alert("Cancelled");
+                $(".hdnId").val("");
+            }
+            /*Edit button */
+            $(document).on("click", ".btnEdit", function () {
+
+                var id = $(this).data('key');
+
+                $.ajax({
+                    method: 'get',
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("Edit", "Category")?id=' + id,
+                    success: function (res) {
+                        if (res.success == false) {
+                            alert(res.message)
+                        }
+                        else {
+                            $(".txtName").val(res.data.categoryName);
+                            $(".txtCode").val(res.data.categoryCode);
+                            $(".hdnId").val(res.data.categoryId);
+
+                        }
+                    },
+                    error: function (res) {
+                        alert(res.message);
+                    }
+                });
+
+            });
+
+
+            //delete ajax
+            $(document).on("click", ".btnDlt", function () {
+                var id = $(this).data('key');
+
+                $.ajax({
+                    method: 'get',
+                    contentType: "application/json; charset=utf8",
+                    url: "@Url.Action("Delete","Category")?id=" + id,
+                    success: function (res) {
+                        loadTable();
+                        alert(res.message);
+                    },
+                    error: function (res) {
+                        alert(res.message);
+                    }
+                })
+            })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            $(document).on("click", ".btnCancel", function () {
+                var ok = confirm("Are you sure you want to cancel");
+                if (ok) {
+                    $(".txtName").val("");
+                    $(".txtCode").val("");
+                    alert("Cancelled");
 
             }
             else {
@@ -204,13 +205,9 @@
                             loadTable();
                             clearForm();
                         }
-                        alert(response.message);
-                    },
-                    error: function (response) {
-                        alert(response.message);
-                    }
-                });
-            }
+                    });
+                }
+
 
 
             

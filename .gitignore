@@ -9,7 +9,13 @@ Release/
 node_modules/
 packages/
 bower_components/
+
+# Ignore the dist folder but allow lib/bootstrap
 dist/
+!wwwroot/lib/bootstrap/dist/
+
+# Ignore static files but allow the Bootstrap files
+!lib/bootstrap/
 
 # Ignore temporary files
 *.suo
@@ -34,5 +40,4 @@ docker-compose.override.yml
 _ReSharper*/
 *.[Rr]e[Ss]harper
 
-# Ignore static files but allow the Bootstrap files
-!lib/bootstrap/
+
