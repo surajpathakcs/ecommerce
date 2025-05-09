@@ -64,6 +64,7 @@ namespace ecom.Controllers
 
         public JsonResult Save(int hiddenId, string CategoryName, string CategoryCode)
         {
+            //assign CategoryCode implicitly
             if (hiddenId == 0) { 
                 Category category = new Category();
                 category.CategoryName = CategoryName;
