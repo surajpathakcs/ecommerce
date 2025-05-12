@@ -71,6 +71,7 @@ public class ProductService : IProductService
     public async Task<ProductItemDto> GetById(int id)
     {
         var product = await _db.ProductItem.FindAsync(id);
+        var category = await _db.Category.FindAsync(id);
         if (product == null) return null;
 
         return new ProductItemDto
@@ -78,6 +79,7 @@ public class ProductService : IProductService
             ProductItemId = product.ProductItemId,
             ProductItemName = product.ProductItemName,
             ProductItemCode = product.ProductItemCode,
+            CategoryName=category.CategoryName,
             CategoryId = product.CategoryId,
             Description = product.Description,
             UnitPrice = product.UnitPrice,

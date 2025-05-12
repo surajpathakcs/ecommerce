@@ -38,8 +38,10 @@
                         <input type="text" class="form-control txtCode" id="ProductCode" placeholder="Enter Product Code">
                     </div>
                     <div>
+                        @* <input type="hidden" class="txtCategory" id="CategoryId" /> *@
                         <label for="CategoryId" class="row-2">Category</label>
-                        <input type="number" class="form-control txtCategory" id="CategoryId" placeholder="Enter Category ID">
+                        <input type="text" class="form-control txtCategory" id="CategoryInput" placeholder="Enter Category ID" list="categoryList">
+                        <datalist id="categoryList"></datalist>
                     </div>
                     <div>
                         <label for="Description" class="row-2">Description</label>
@@ -68,11 +70,10 @@
 @section Scripts {
 
     <script>
-        $(document).ready(function () {
-            loadTable();
-        });
+        
+        
 
-        function loadTable() {
+    /*    function loadTable() {
             $.ajax({
                 method: 'GET',
                 url: '/ProductItem/GetProductItems',
@@ -103,9 +104,10 @@
                 }
             });
         };
+        */
 
     </script>
+<script src="~/js/productItem.js"></script>
 };
 
 
-<script src="~/js/site.js"></script>

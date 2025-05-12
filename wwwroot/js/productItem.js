@@ -1,13 +1,36 @@
 ﻿$(document).ready(function () {
-    loadItems();
+    loadTable();
 });
+let categoriesLoaded = false;
 
+$(document).ready(function () {
+    $("#CategoryInput").on("focus", function () {
+        if (!categoriesLoaded) {
+            $.ajax({
+                method: 'GET',
+                url: '/Category/GetCategories',
+                success: function (res) {
+                    if (res.data && res.data.length > 0) {
+                        const datalist = $("#categoryList");
+                        datalist.empty(); // clear existing options
+                        $.each(res.data, function (index, category) {
+                            datalist.append(`<option value="${category.categoryName}"></option>`);
+                        });
+                        categoriesLoaded = true; // load only once
+                    }
+                },
+                error: function () {
+                    alert("Failed to fetch categories.");
+                }
+            });
+        }
+    });
+});
 function loadTable() {
     $.ajax({
         method: 'GET',
         url: '/ProductItem/GetProductItems',
         success: function (res) {
-            debugger
             var tableBody = $("table tbody");
             tableBody.empty();
             $.each(res.data, function (index, product) {
@@ -50,6 +73,7 @@ function clearForm() {
 
 $(document).on("click", ".btnEdit", function () {
     var id = $(this).data("key");
+    alert("hey"+id);
 
     $.ajax({
         method: 'GET',
@@ -57,10 +81,10 @@ $(document).on("click", ".btnEdit", function () {
         success: function (res) {
             if (res.success) {
                 var product = res.data;
-
                 $(".txtName").val(product.productItemName);
                 $(".txtCode").val(product.productItemCode);
-                $(".txtCategory").val(product.categoryId);
+                $(".txtCategory").val(product.categoryName);
+               // console.log(res.data);
                 $(".txtDescription").val(product.description);
                 $(".txtPrice").val(product.unitPrice);
                 $(".txtThumbnail").val(product.thumbnail);
