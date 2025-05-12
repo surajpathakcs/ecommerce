@@ -71,7 +71,7 @@ public class ProductService : IProductService
     public async Task<ProductItemDto> GetById(int id)
     {
         var product = await _db.ProductItem.FindAsync(id);
-        var category = await _db.Category.FindAsync(id);
+        var category = await _db.Category.FindAsync(product.CategoryId);
         if (product == null) return null;
 
         return new ProductItemDto

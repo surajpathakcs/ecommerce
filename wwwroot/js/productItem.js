@@ -73,7 +73,6 @@ function clearForm() {
 
 $(document).on("click", ".btnEdit", function () {
     var id = $(this).data("key");
-    alert("hey"+id);
 
     $.ajax({
         method: 'GET',
