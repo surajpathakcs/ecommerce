@@ -37,11 +37,16 @@
                         <label for="ProductCode" class="row-2">Product Code</label>
                         <input type="text" class="form-control txtCode" id="ProductCode" placeholder="Enter Product Code">
                     </div>
-                    <div>
-                        @* <input type="hidden" class="txtCategory" id="CategoryId" /> *@
-                        <label for="CategoryId" class="row-2">Category</label>
+                    <div><!--
+
                         <input type="text" class="form-control txtCategory" id="CategoryInput" placeholder="Enter Category ID" list="categoryList">
                         <datalist id="categoryList"></datalist>
+                    -->
+                        <label for="CategoryId" class="row-2">Category</label>
+                        <input type="hidden" class="hiddenCategoryId" id="CategoryId" />
+                        <select class="form-control text-muted" id="CategorySelect">
+                            <option value="" disabled selected>Select Category</option> <!-- Default option -->
+                        </select>
                     </div>
                     <div>
                         <label for="Description" class="row-2">Description</label>
@@ -68,45 +73,6 @@
 
 
 @section Scripts {
-
-    <script>
-        
-        
-
-    /*    function loadTable() {
-            $.ajax({
-                method: 'GET',
-                url: '/ProductItem/GetProductItems',
-                success: function (res) {
-                    var tableBody = $("table tbody");
-                    tableBody.empty();
-                    $.each(res.data, function (index, product) {
-                        var row = `<tr>
-                           <td>${index + 1}</td>
-                           <td>${product.productItemName}</td>
-                           <td>${product.productItemCode}</td>
-                           <td>${product.categoryId}</td>
-                           <td>${product.description}</td>
-                           <td>${product.unitPrice}</td>
-                           <td><img src="${product.thumbnail}" alt="Thumbnail" width="50"></td>
-                           <td>
-                               <button class="btn btn-warning btnEdit" data-key="${product.productItemId}">Edit</button>
-                               <button class="btn btn-danger btnDlt" data-key="${product.productItemId}">Delete</button>
-                           </td>
-                       </tr>`
-                        tableBody.append(row);
-                    });
-
-                    //$("table tbody").html(row)
-                },
-                error: function () {
-                    alert("Failed to load data!");
-                }
-            });
-        };
-        */
-
-    </script>
 <script src="~/js/productItem.js"></script>
 };
 

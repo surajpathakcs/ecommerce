@@ -27,6 +27,8 @@ public class ProductService : IProductService
     public async Task<List<ProductItemDto>> GetAll()
     {
         return await _db.ProductItem
+            .OrderBy(x => x.CategoryId)
+            .ThenBy(x => x.ProductItemName)
             .Select(x => new ProductItemDto
             {
                 ProductItemId = x.ProductItemId,

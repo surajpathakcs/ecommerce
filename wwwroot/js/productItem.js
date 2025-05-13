@@ -3,7 +3,7 @@
 });
 let categoriesLoaded = false;
 
-$(document).ready(function () {
+/*$(document).ready(function () {
     $("#CategoryInput").on("focus", function () {
         if (!categoriesLoaded) {
             $.ajax({
@@ -14,7 +14,7 @@ $(document).ready(function () {
                         const datalist = $("#categoryList");
                         datalist.empty(); // clear existing options
                         $.each(res.data, function (index, category) {
-                            datalist.append(`<option value="${category.categoryName}"></option>`);
+                            datalist.append(`<option value="${category.categoryName}" data-id="${category.categoryId}"></option>`);
                         });
                         categoriesLoaded = true; // load only once
                     }
@@ -25,7 +25,39 @@ $(document).ready(function () {
             });
         }
     });
+});*/
+$(document).ready(function () {
+    let categoriesLoaded = false;
+    $("#CategorySelect").on("focus", function () {
+        if (!categoriesLoaded) {
+            $.ajax({
+                method: 'GET',
+                url: '/Category/GetCategories',
+                success: function (res) {
+                    if (res.data && res.data.length > 0) {
+                        const select = $("#CategorySelect");
+                        select.empty(); // clear existing options
+                        select.append('<option value="" disabled selected>Select Category</option>'); // default option
+                        $.each(res.data, function (index, category) {
+                            select.append(`<option value="${category.categoryId}">${category.categoryName}</option>`);
+                        });
+                        categoriesLoaded = true; // load only once
+                    }
+                },
+                error: function () {
+                    alert("Failed to fetch categories.");
+                }
+            });
+        }
+    });
+
+    // Listen for change event to capture the selected category's ID
+    $('#CategorySelect').on('change', function () {
+        const selectedCategoryId = $(this).val();
+        $("#CategoryId").val(selectedCategoryId); // Store the categoryId in the hidden input
+    });
 });
+
 function loadTable() {
     $.ajax({
         method: 'GET',
@@ -82,12 +114,30 @@ $(document).on("click", ".btnEdit", function () {
                 var product = res.data;
                 $(".txtName").val(product.productItemName);
                 $(".txtCode").val(product.productItemCode);
-                $(".txtCategory").val(product.categoryName);
-               // console.log(res.data);
                 $(".txtDescription").val(product.description);
                 $(".txtPrice").val(product.unitPrice);
                 $(".txtThumbnail").val(product.thumbnail);
                 $(".hdnId").val(product.productItemId);
+                $("#CategoryId").val(product.categoryId);
+
+                $.ajax({
+                    method: 'GET',
+                    url: '/Category/GetCategories',
+                    success: function (resCat) {
+                        if (resCat.data && resCat.data.length > 0) {
+                            const select = $("#CategorySelect");
+                            select.empty();
+                            select.append(`<option value="" disabled>Select Category</option>`);
+                            $.each(resCat.data, function (index, category) {
+                                const isSelected = category.categoryId === product.categoryId ? 'selected' : '';
+                                select.append(`<option value="${category.categoryId}" ${isSelected}>${category.categoryName}</option>`);
+                            });
+                        }
+                    },
+                    error: function () {
+                        //  alert("Failed to fetch categories.");
+                    }
+                });
             } else {
                 alert(res.message);
             }
@@ -132,7 +182,7 @@ $(document).on("click", ".btnSave", function () { ///////////////////////       
     var createproductdto = {
         ProductItemName: $(".txtName").val(),
         ProductItemCode: $(".txtCode").val(),
-        CategoryId: parseInt($(".txtCategory").val()), // Parse as integer
+        CategoryId: parseInt($(".hiddenCategoryId").val()), // Parse as integer
         Description: $(".txtDescription").val(),
         UnitPrice: parseFloat($(".txtPrice").val()), // Parse as decimal
         Thumbnail: $(".txtThumbnail").val()
