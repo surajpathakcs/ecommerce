@@ -73,10 +73,10 @@ function loadTable() {
                                  <td>${product.categoryId}</td>
                                  <td>${product.description}</td>
                                  <td>${product.unitPrice}</td>
-                                 <td><img src="${product.thumbnail}" alt="Thumbnail" width="50"></td>
+                                 <td><img src="${product.thumbnail}" alt="Thumbnail" width="50" ></td>
                                  <td>
-                                     <button class="btn btn-warning btnEdit" data-key="${product.productItemId}">Edit</button>
-                                     <button class="btn btn-danger btnDlt" data-key="${product.productItemId}">Delete</button>
+                                     <button class="btn btn-warning btnEdit" style="width: 80px; margin-bottom:4px;" data-key="${product.productItemId}">Edit</button>
+                                     <button class="btn btn-danger btnDlt" style="width: 80px;" data-key="${product.productItemId}">Delete</button>
                                  </td>
                              </tr>`;
 
@@ -192,7 +192,7 @@ $(document).on("click", ".btnSave", function () { ///////////////////////       
         createproductdto.ProductItemId = parseInt(id); // Parse as integer
         $.ajax({
             method: 'POST',
-            url: '/ProductItem/Update', // Fixed: removed Url.Action, used direct path
+            url: '/ProductItem/Update', 
             contentType: 'application/json',
             data: JSON.stringify(createproductdto),
             success: function (response) {
@@ -207,7 +207,7 @@ $(document).on("click", ".btnSave", function () { ///////////////////////       
     } else {
         $.ajax({
             method: 'POST',
-            url: '/ProductItem/Create', // Fixed: removed Url.Action, used direct path
+            url: '/ProductItem/Create',
             contentType: 'application/json',
             data: JSON.stringify(createproductdto),
             success: function (response) {
@@ -228,7 +228,7 @@ $(document).on("click", ".btnDlt", function () { ///////////////////////        
 
     $.ajax({
         method: 'DELETE', // Changed from GET to DELETE to match controller
-        url: '/ProductItem/Delete?id=' + id, // Fixed: removed Url.Action, used direct path
+        url: '/ProductItem/Delete?id=' + id, 
         success: function (res) {
             loadTable();
             alert(res.message);

@@ -2,20 +2,23 @@
 
 
 <div class="row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-hover table-striped">
+    <div class="col-md-8 card border-0 shadow-sm rounded-3" style="background-color: var(--background);">
+        <div class="card-header border-0 py-3" style="background-color: var(--coffee-dark); border-radius: 0.5rem 0.5rem 0 0;">
+            <h4 class="text-white mb-0 fw-light">Products</h4>
+        </div>
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped" style="color: var(--text-dark);">
                     <thead>
                         <tr>
-                            <td>SN</td>
-                            <td>Product Name</td>
-                            <td>Product Code</td>
-                            <td>Category</td>
-                            <td>Description</td>
-                            <td>Unit Price</td>
-                            <td>Thumbnail</td>
-                            <td>Action</td>
+                            <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">SN</th>
+                            <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Product Name</th>
+                            <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Product Code</th>
+                            <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Category</th>
+                            <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Description</th>
+                            <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Unit Price</th>
+                            <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Thumbnail</th>
+                            <th style="color: var(--coffee-medium); border-bottom: 2px solid var(--coffee-light);">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,16 +28,20 @@
             </div>
         </div>
     </div>
+
     <div class="col-md-4">
-        <div class="card">
+        <div class="card border-0 shadow-sm rounded-3" style="background-color: var(--background);">
+            <div class="card-header border-0 py-3" style="background-color: var(--coffee-dark); border-radius: 0.5rem 0.5rem 0 0;">
+                <h4 class="text-white mb-0 fw-light">Product Form</h4>
+            </div>
             <div class="card-body">
                 <div class="form-group">
                     <div>
-                        <label for="ProductName" class="row-2">Product Name</label>
+                        <label for="ProductName" class="row-2 form-label" style="color: var(--coffee-medium);">Product Name</label>
                         <input type="text" class="form-control txtName" id="ProductName" placeholder="Enter Product Name">
                     </div>
                     <div>
-                        <label for="ProductCode" class="row-2">Product Code</label>
+                        <label for="ProductCode" class="row-2 form-label" style="color: var(--coffee-medium);">Product Code</label>
                         <input type="text" class="form-control txtCode" id="ProductCode" placeholder="Enter Product Code">
                     </div>
                     <div><!--
@@ -42,28 +49,28 @@
                         <input type="text" class="form-control txtCategory" id="CategoryInput" placeholder="Enter Category ID" list="categoryList">
                         <datalist id="categoryList"></datalist>
                     -->
-                        <label for="CategoryId" class="row-2">Category</label>
+                        <label for="CategoryId" class="row-2 form-label" style="color: var(--coffee-medium);">Category</label>
                         <input type="hidden" class="hiddenCategoryId" id="CategoryId" />
                         <select class="form-control text-muted" id="CategorySelect">
                             <option value="" disabled selected>Select Category</option> <!-- Default option -->
                         </select>
                     </div>
                     <div>
-                        <label for="Description" class="row-2">Description</label>
+                        <label for="Description" class="row-2 form-label" style="color: var(--coffee-medium);">Description</label>
                         <textarea class="form-control txtDescription" id="Description" placeholder="Enter Product Description"></textarea>
                     </div>
                     <div>
-                        <label for="UnitPrice" class="row-2">Unit Price</label>
+                        <label for="UnitPrice" class="row-2 form-label" style="color: var(--coffee-medium);">Unit Price</label>
                         <input type="number" class="form-control txtPrice" id="UnitPrice" placeholder="Enter Unit Price">
                     </div>
                     <div>
-                        <label for="Thumbnail" class="row-2">Thumbnail URL</label>
+                        <label for="Thumbnail" class="row-2 form-label" style="color: var(--coffee-medium);">Thumbnail URL</label>
                         <input type="text" class="form-control txtThumbnail" id="Thumbnail" placeholder="Enter Image URL">
                     </div>
                     <div class="row-2 mt-2">
                         <input type="hidden" class="hdnId" />
-                        <button type="submit" class="btn btn-success btnSave">Save</button>
-                        <button type="button" class="btn btn-danger btnCancel">Cancel</button>
+                        <button type="submit" class="btn btnSave text-white" style="background-color: var(--coffee-medium);">Save</button>
+                        <button type="button" class="btn btnCancel text-white" style="background-color: var(--coffee-dark);">Cancel</button>
                     </div>
                 </div>
             </div>
