@@ -3,6 +3,7 @@ using ecom.Dto.ProductDtos;
 using System.Threading.Tasks;
 using ecom.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using ecom.Models;
 
 namespace ecom.Controllers
 {
@@ -19,7 +20,7 @@ namespace ecom.Controllers
         }
 
 
-        
+
 
 
         public async Task<IActionResult> Index()
@@ -29,9 +30,7 @@ namespace ecom.Controllers
             {
                 return RedirectToAction("AdminAccess", "Admin");
             }
-
-            var datas =await _productservice.GetAll();
-            return View(datas);
+            return View();
         }
         [HttpGet]
         public async Task<JsonResult> GetById(int id)
@@ -47,10 +46,24 @@ namespace ecom.Controllers
         }
 
 
-        public async Task<JsonResult> GetProductItems()
+        public async Task<JsonResult> GetProductItems(int pageNumber)
         {
-            var datas = await _productservice.GetAll();
-            return Json(new { data = datas});
+            const int count = 20;
+            int offset = (pageNumber - 1) * count;
+            try
+            {
+                var datas = await _productservice.GetAll();
+                var pagedData = datas.Skip(offset).Take(count).ToList();
+                return Json(new { data = pagedData });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    data = new List<ProductItem>()
+                });
+
+            }
         }
 
         [HttpPost]

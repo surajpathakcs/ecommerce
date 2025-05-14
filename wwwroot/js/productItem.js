@@ -1,7 +1,20 @@
-﻿$(document).ready(function () {
-    loadTable();
-});
+﻿let page = 1;
 let categoriesLoaded = false;
+
+function navigatePage(action) {
+    if (action === "prev") {
+        if (page > 1) {
+            page--;
+            loadTable();
+        } else {
+            alert("Already on first page.");
+        }
+    }
+    else if (action === "next") {
+        page++;
+        loadTable();
+    }
+}
 
 /*$(document).ready(function () {
     $("#CategoryInput").on("focus", function () {
@@ -59,14 +72,17 @@ $(document).ready(function () {
 });
 
 function loadTable() {
+    let pageNumber = page;
     $.ajax({
         method: 'GET',
         url: '/ProductItem/GetProductItems',
+        data: { pageNumber: page },
         success: function (res) {
             var tableBody = $("table tbody");
             tableBody.empty();
-            $.each(res.data, function (index, product) {
-                var row = `<tr>
+            if (res.data && res.data.length > 0) {
+                $.each(res.data, function (index, product) {
+                    var row = `<tr>
                                  <td>${index + 1}</td>
                                  <td>${product.productItemName}</td>
                                  <td>${product.productItemCode}</td>
@@ -80,9 +96,18 @@ function loadTable() {
                                  </td>
                              </tr>`;
 
-                tableBody.append(row);
-            });
+                    tableBody.append(row);
+                });
+                // Disable previous button on first page
+                $("#previous").prop("disabled", page <= 1);
 
+                // Disable next button if no data returned
+                $("#next").prop("disabled", res.data.length === 0);
+
+            } else {
+                tableBody.append('<tr><td colspan="8" class="text-center">No products found</td></tr>');
+                $("#next").prop("disabled", true);
+            }
             //$("table tbody").html(row)
         },
         error: function () {
@@ -192,7 +217,7 @@ $(document).on("click", ".btnSave", function () { ///////////////////////       
         createproductdto.ProductItemId = parseInt(id); // Parse as integer
         $.ajax({
             method: 'POST',
-            url: '/ProductItem/Update', 
+            url: '/ProductItem/Update',
             contentType: 'application/json',
             data: JSON.stringify(createproductdto),
             success: function (response) {
@@ -228,7 +253,7 @@ $(document).on("click", ".btnDlt", function () { ///////////////////////        
 
     $.ajax({
         method: 'DELETE', // Changed from GET to DELETE to match controller
-        url: '/ProductItem/Delete?id=' + id, 
+        url: '/ProductItem/Delete?id=' + id,
         success: function (res) {
             loadTable();
             alert(res.message);

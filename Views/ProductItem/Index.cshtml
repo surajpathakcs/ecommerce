@@ -1,6 +1,23 @@
 ﻿@model IEnumerable<ecom.Dto.ProductItemDtos.ProductItemDto>
 
 
+<div class="d-flex justify-content-center">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item">
+                <button class="page-link" id="previous" onclick="navigatePage('prev')">Previous</button>
+            </li>
+
+            
+
+            <li class="page-item">
+                <button class="page-link" id="next" onclick="navigatePage('next')">Next</button>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
 <div class="row">
     <div class="col-md-8 card border-0 shadow-sm rounded-3" style="background-color: var(--background);">
         <div class="card-header border-0 py-3" style="background-color: var(--coffee-dark); border-radius: 0.5rem 0.5rem 0 0;">
@@ -80,7 +97,7 @@
 
 
 @section Scripts {
-<script src="~/js/productItem.js"></script>
+    <script src="~/js/productItem.js" defer></script>
 };
 
 
