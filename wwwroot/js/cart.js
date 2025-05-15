@@ -30,6 +30,7 @@ $(document).on('click', '.btnClearCart', function () {
         localStorage.removeItem('ls_product');
         loadItems();
         CalcuateAndShowTotal();
+        updateCartCount();
     }
 })
 
@@ -47,6 +48,7 @@ $(document).on('click', '.btnRemoveItem', function () {
         localStorage.setItem('ls_product', JSON.stringify(obj));
         loadItems();
         CalcuateAndShowTotal();
+        updateCartCount();
     }
 })
 
