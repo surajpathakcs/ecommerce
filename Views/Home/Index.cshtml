@@ -241,6 +241,7 @@
 
             oldItemsJSON.push(obj);
             localStorage.setItem('ls_product', JSON.stringify(oldItemsJSON));
+            updateCartCount();
             alert('Product Added in Cart');
         });
     </script>
