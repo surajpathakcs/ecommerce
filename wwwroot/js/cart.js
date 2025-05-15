@@ -146,3 +146,52 @@ function CalcuateAndShowTotal() {
 
     $('.tdGrandTotal').html(grandTotal);
 }
+
+//btn cart click handle
+$(document).on("click", ".btnCart", function () {
+    var obj = {
+        Id: $(this).data("pk"),
+        ProductName: $(this).data("name"),
+        UnitPrice: $(this).data("price"),
+        Quantity: 1,
+        Total: $(this).data("price")
+    };
+
+    var oldItems = localStorage.getItem('ls_product') || '[]';
+    var oldItemsJSON = JSON.parse(oldItems);
+
+    var existData = oldItemsJSON.filter(x => x.Id == obj.Id);
+    if (existData && existData.length > 0) {
+        alert('Product Already in Cart');
+        return;
+    }
+
+    oldItemsJSON.push(obj);
+    localStorage.setItem('ls_product', JSON.stringify(oldItemsJSON));
+    updateCartCount();
+    alert('Product Added in Cart');
+});
+
+
+//-------------------------------------------------------------------------//
+$(document).on('click', '.gotocart', function () {
+    window.location.href = window.location.origin + "/Cart/Index"
+})
+
+// Initialize Swiper for each category carousel
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".swiper").forEach(swiperElement => {
+        new Swiper(swiperElement, {
+            slidesPerView: 4,
+            spaceBetween: 20,
+            loop: true,
+            breakpoints: {
+                320: { slidesPerView: 1 },
+                480: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 }
+            }
+        });
+    });
+});
+
