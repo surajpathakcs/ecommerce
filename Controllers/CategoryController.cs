@@ -1,6 +1,9 @@
 ﻿using ecom.DAO;
+using ecom.Dto.Category;
 using ecom.Models;
 using ecom.Models.ViewModel;
+using ecom.Services.Interfaces;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,125 +11,44 @@ namespace ecom.Controllers
 {
     public class CategoryController : BaseController
     {
-        public ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+        private readonly ICategoryService _categoryservice;
+        private ApplicationDbContext _db;
+        public CategoryController(ICategoryService categoryservice)
         {
-            _db = db;
-        }
-        public IActionResult CategoryDetail(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = _db.Category.Where(x => x.CategoryId == id).ToList();
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            var productitem = _db.ProductItem.Where(x => x.CategoryId == id).ToList();
-
-            var viewmodel = new DashboardVM
-            {
-                CategoryInfo = category,
-                ProductItems = productitem,
-            };
-
-            return View(viewmodel);
+            _categoryservice = categoryservice;
         }
 
         public IActionResult Index()
         {
-
             // Only show category page if the user is an admin
             if (!IsAdmin)
             {
                 return RedirectToAction("AdminAccess", "Admin");
             }
-
-            var datas = _db.Category.ToList();
-            return View(datas);
+            return View();
         }
-        public JsonResult GetCategories()
+
+        
+        
+        public async Task<IActionResult> GetCategories()
         {
-            var datas = _db.Category.Select(x => new
-            {
-                categoryId = x.CategoryId,
-                categoryName = x.CategoryName,
-                categoryCode = x.CategoryCode,
-                createdAt = x.CreatedAt.ToString("yyyy-MM-dd")
-            }).ToList();
+
+            var datas = await _categoryservice.GetCategory();
 
             return Json(new { data = datas });
         }
 
-        public JsonResult Save(int hiddenId, string CategoryName, string CategoryCode)
+        public async Task Save(CreateCategoryDto createcategorydto)
         {
-            if (hiddenId == 0) { 
-                Category category = new Category();
-                category.CategoryName = CategoryName;
-                category.CategoryCode = CategoryCode;
-                category.CreatedAt = System.DateTime.Now;
+            await _categoryservice.CreateCategory(createcategorydto);
 
-                _db.Add(category);
-                _db.SaveChanges();
-
-                return Json(new
-                {
-                    success = true,
-                    message = "Category has been saved successfully"
-                });
-            }
-            else
-            {
-                var dbData = _db.Category.Where(x => x.CategoryId == hiddenId).FirstOrDefault();
-                if (dbData == null)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "Category not found"
-                    });
-                }
-                else
-                {
-                    dbData.CategoryName = CategoryName;
-                    dbData.CategoryCode = CategoryCode;
-
-                    _db.Update(dbData);
-                    _db.SaveChanges();
-
-                    return Json(new
-                    {
-                        success = true,
-                        message = "Category has been updated successfully"
-                    });
-                }
+            
             
         }
-        }
-        public JsonResult Edit(int id)
+        public async Task<Object> Edit(int id)
         {
-            var dbData = _db.Category.Where(x => x.CategoryId == id).FirstOrDefault();
-
-            if (dbData == null)
-            {
-                return Json(new
-                {
-                    Success = false,
-                    Message = "Category not found"
-                });
-            }
-            else
-            {
-                return Json(new
-                {
-                    Success = true,
-                    Data = dbData
-                });
-            }
+            var datas = await _categoryservice.Edit(id);
+            return new { data =  datas};
         }
 
         //Delete JsonResult
@@ -161,3 +83,85 @@ namespace ecom.Controllers
     }
 }
 
+
+
+
+
+
+
+/*public IActionResult CategoryDetail(int? id)
+        {
+            //call a  service
+            
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var category = _db.Category.Where(x => x.CategoryId == id).ToList();
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            var productitem = _db.ProductItem.Where(x => x.CategoryId == id).ToList();
+
+            var viewmodel = new DashboardVM
+            {
+                CategoryInfo = category,
+                ProductItems = productitem,
+            };
+
+            return View(viewmodel);
+        }*/
+
+
+
+/*
+ if (hiddenId == 0)
+{
+    Category category = new Category();
+    category.CategoryName = CategoryName;
+    category.CategoryCode = CategoryCode;
+    category.CreatedAt = System.DateTime.Now;
+
+    _db.Add(category);
+    _db.SaveChanges();
+
+    return Json(new
+    {
+        success = true,
+        message = "Category has been saved successfully"
+    });
+
+}
+            else
+            {
+                var dbData = _db.Category.Where(x => x.CategoryId == hiddenId).FirstOrDefault();
+                if (dbData == null)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Category not found"
+                    });
+                }
+                else
+                {
+                    dbData.CategoryName = CategoryName;
+                    dbData.CategoryCode = CategoryCode;
+
+                    _db.Update(dbData);
+                    _db.SaveChanges();
+
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Category has been updated successfully"
+                    });
+                }
+
+
+
+
+ */

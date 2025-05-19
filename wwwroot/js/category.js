@@ -102,14 +102,20 @@ $(document).on("click", ".btnSave", function () {
     var code = encodeURIComponent($(".txtCode").val());
     var hiddenId = $(".hdnId").val();
 
-    alert("error found");
+    var createcategorydto = {
+        hiddenId : hiddenId,
+        CategoryName : name,
+        CategoryCode : code
+    }
+
     if (name == "" || code == "") {
         alert("Please fill all the fields");
     }
     else {
         $.ajax({
-            method: 'get',
-            url: '/Category/Save?hiddenId=' + hiddenId + '&CategoryName=' + name + '&CategoryCode=' + code,
+            method: 'POST',
+            url: '/Category/Save',
+            data: JSON.stringify(createcategorydto),
             contentType: "application/json; charset=utf-8",
             success: function (response) {
                 success = response.success;
