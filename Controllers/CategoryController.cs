@@ -12,7 +12,6 @@ namespace ecom.Controllers
     public class CategoryController : BaseController
     {
         private readonly ICategoryService _categoryservice;
-        private ApplicationDbContext _db;
         public CategoryController(ICategoryService categoryservice)
         {
             _categoryservice = categoryservice;
@@ -38,10 +37,25 @@ namespace ecom.Controllers
             return Json(new { data = datas });
         }
 
-        public async Task Save(CreateCategoryDto createcategorydto)
+        [HttpPost]
+        public async Task<IActionResult> Save([FromBody]CreateCategoryDto createcategorydto)
         {
-            await _categoryservice.CreateCategory(createcategorydto);
+            // Check if model is valid
+            if (createcategorydto == null)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Invalid data received"
+                });
+            }
 
+            // For debugging
+            Console.WriteLine($"Received DTO - Name: {createcategorydto.CategoryName}, Code: {createcategorydto.CategoryCode}, Id: {createcategorydto.HiddenId}");
+
+
+            var result = await _categoryservice.CreateCategory(createcategorydto);
+            return Json(result);
             
             
         }
@@ -51,9 +65,15 @@ namespace ecom.Controllers
             return new { data =  datas};
         }
 
-        //Delete JsonResult
+        public async Task<Object> Delete(int id)
+        {
+            return await _categoryservice.Delete(id);
+        }
 
-        public JsonResult Delete(int? id)
+
+
+
+        /*public JsonResult Delete(int? id)
         {
             Category category = new Category();
 
@@ -80,6 +100,7 @@ namespace ecom.Controllers
             }
 
         }
+        */
     }
 }
 

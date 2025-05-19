@@ -1,14 +1,15 @@
-﻿using AspNetCore;
-using ecom.DAO;
+﻿using ecom.DAO;
 using ecom.Dto.Category;
 using ecom.Models;
+using ecom.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace ecom.Services
 {
-    public class CategoryService
+    public class CategoryService : ICategoryService
     {
         private readonly ApplicationDbContext _dbContext;
         public CategoryService(ApplicationDbContext dbContext)
@@ -26,9 +27,9 @@ namespace ecom.Services
                 CreatedAt = x.CreatedAt.ToString("yyyy-MM-dd")
             }).ToList();
         }
-        public async Task<Object> CreateCategory(CreateCategoryDto createcategorydto)
+        public async Task<Object> CreateCategory([FromBody] CreateCategoryDto createcategorydto)
         {
-            if (createcategorydto.hiddenId == 0)
+            if (createcategorydto.HiddenId == 0)
             {
                 var category = new Category();
                 category.CategoryName = createcategorydto.CategoryName;
@@ -47,7 +48,7 @@ namespace ecom.Services
             }
             else
             {
-                var category = _dbContext.Category.Where(x => x.CategoryId == createcategorydto.hiddenId).FirstOrDefault();
+                var category = _dbContext.Category.Where(x => x.CategoryId == createcategorydto.HiddenId).FirstOrDefault();
 
                 if (category == null)
                 {
@@ -72,7 +73,7 @@ namespace ecom.Services
                 };
             }
         }
-    
+
         public async Task<Object> Edit(int id)
         {
             var dbData = _dbContext.Category.Where(x => x.CategoryId == id).FirstOrDefault();
@@ -91,6 +92,29 @@ namespace ecom.Services
                 {
                     Success = true,
                     Data = dbData
+                };
+            }
+        }
+
+        public async Task<Object> Delete(int id)
+        {
+            var category = await _dbContext.Category.Where(x => x.CategoryId == id).FirstOrDefaultAsync();
+            if (category == null)
+            {
+                return new
+                {
+                    Success = false,
+                    Message = "Category not found"
+                };
+            }
+            else
+            {
+                _dbContext.Remove(category);
+                await _dbContext.SaveChangesAsync();
+                return new
+                {
+                    Success = true,
+                    Message = "Category deleted"
                 };
             }
         }

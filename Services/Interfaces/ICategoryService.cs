@@ -7,7 +7,8 @@ namespace ecom.Services.Interfaces
     {
         //list the services 
         Task<List<CategoryDto>> GetCategory();
-        Task<JsonResult> CreateCategory(CreateCategoryDto createcategorydto);
+        Task<Object> CreateCategory(CreateCategoryDto createcategorydto);
         Task<Object> Edit(int id);
+        Task<Object> Delete(int id);
     }
 }
