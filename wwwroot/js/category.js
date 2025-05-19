@@ -46,16 +46,16 @@ $(document).on("click", ".btnEdit", function () {
 
     $.ajax({
         method: 'get',
-        contentType: "application/json; charset=utf-8",
         url: '/Category/Edit?id=' + id,
+        contentType: "application/json; charset=utf-8",
         success: function (res) {
             if (res.success == false) {
                 alert(res.message)
             }
             else {
-                $(".txtName").val(res.data.categoryName);
-                $(".txtCode").val(res.data.categoryCode);
-                $(".hdnId").val(res.data.categoryId);
+                $(".txtName").val(res.data.data.categoryName);
+                $(".txtCode").val(res.data.data.categoryCode);
+                $(".hdnId").val(res.data.data.categoryId);
 
             }
         },
@@ -98,36 +98,39 @@ $(document).on("click", ".btnCancel", function () {
 })
 
 $(document).on("click", ".btnSave", function () {
-    var name = encodeURIComponent($(".txtName").val()); // Encode special characters
-    var code = encodeURIComponent($(".txtCode").val());
     var hiddenId = $(".hdnId").val();
 
-    alert("error found");
-    if (name == "" || code == "") {
-        alert("Please fill all the fields");
+    var createcategorydto = {
+        CategoryName: $(".txtName").val(),
+        CategoryCode: $(".txtCode").val()
+    };
+
+    // Add ID only if it's an edit operation
+    if (hiddenId && hiddenId != "0") {
+        createcategorydto.HiddenId = parseInt(hiddenId);
     }
-    else {
-        $.ajax({
-            method: 'get',
-            url: '/Category/Save?hiddenId=' + hiddenId + '&CategoryName=' + name + '&CategoryCode=' + code,
-            contentType: "application/json; charset=utf-8",
-            success: function (response) {
-                success = response.success;
-                if (success == true) {
-                    loadTable();
-                    clearForm();
-                }
+
+    // Log what we're sending
+    console.log("Sending data:", createcategorydto);
+
+    $.ajax({
+        method: 'POST',
+        url: '/Category/Save',
+        contentType: 'application/json',
+        data: JSON.stringify(createcategorydto),
+        success: function (response) {
+            console.log("Response:", response);
+            if (response.success) {
                 alert(response.message);
-            },
-            error: function (response) {
-                alert(response.message);
+                loadTable();
+                clearForm();
+            } else {
+                alert("Error: " + response.message);
             }
-        });
-    }
-
-
-
-
-
-
-})
+        },
+        error: function (xhr) {
+            console.error("Error details:", xhr);
+            alert("Error: " + (xhr.responseJSON?.message || "Failed to save category"));
+        }
+    });
+});
